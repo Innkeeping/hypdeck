@@ -23,16 +23,23 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ editor }) => {
   const [isResizing, setIsResizing] = useState(false);
   const nodeRef = useRef(null);
   const titleInputRef = useRef<HTMLInputElement>(null);
+  const editorRef = useRef<any>(null);
+
+  const handleEditorDidMount = (editor: any) => {
+    editorRef.current = editor;
+    if (editor.isActive) {
+      editor.focus();
+      editor.setPosition({ lineNumber: 1, column: 1 });
+    }
+  };
 
   const handleDrag = (_e: DraggableEvent, data: DraggableData) => {
-    // Constrain x position to prevent horizontal overflow
     const containerWidth = window.innerWidth;
     const maxX = containerWidth - editor.width;
     const boundedX = Math.max(0, Math.min(maxX, data.x));
 
-    // Constrain y position to prevent dragging above or below viewport
     const minY = 0;
-    const viewportHeight = window.innerHeight - 64; // Account for navbar
+    const viewportHeight = window.innerHeight - 64;
     const maxY = viewportHeight - editor.height;
     const boundedY = Math.max(minY, Math.min(maxY, data.y));
 
@@ -42,7 +49,6 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ editor }) => {
   };
 
   const handleDragStop = (_e: DraggableEvent, data: DraggableData) => {
-    // Apply the same constraints as handleDrag
     const containerWidth = window.innerWidth;
     const maxX = containerWidth - editor.width;
     const boundedX = Math.max(0, Math.min(maxX, data.x));
@@ -59,6 +65,9 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ editor }) => {
 
   const handleClick = () => {
     bringToFront(editor.id);
+    if (editorRef.current) {
+      editorRef.current.focus();
+    }
   };
 
   const handleClose = (e: React.MouseEvent) => {
@@ -216,10 +225,11 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ editor }) => {
   };
 
   useEffect(() => {
-    if (editor.isActive) {
-      handleClick();
+    if (editor.isActive && editorRef.current) {
+      editorRef.current.focus();
+      editorRef.current.setPosition({ lineNumber: 1, column: 1 });
     }
-  }, []);
+  }, [editor.isActive]);
 
   if (editor.isMinimized) {
     return null;
@@ -308,6 +318,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ editor }) => {
             value={editor.content}
             onChange={handleEditorChange}
             theme="vs-dark"
+            onMount={handleEditorDidMount}
             options={{
               minimap: { enabled: false },
               scrollBeyondLastLine: false,

@@ -14,6 +14,7 @@ export interface Editor {
   height: number;
   isActive: boolean;
   isMinimized: boolean;
+  shouldFocus: boolean;
 }
 
 export interface CodeSnippet {

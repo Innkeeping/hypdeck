@@ -17,6 +17,39 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    const handleKeyboard = (e: KeyboardEvent) => {
+      // Prevent handling if user is typing in an input or textarea
+      if (
+        document.activeElement?.tagName === 'INPUT' ||
+        document.activeElement?.tagName === 'TEXTAREA' ||
+        (document.activeElement?.getAttribute('role') === 'textbox')
+      ) {
+        return;
+      }
+
+      if (e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
+        switch (e.key.toLowerCase()) {
+          case 's':
+            e.preventDefault();
+            setIsSnippetManagerOpen(true);
+            break;
+          case 'm':
+            e.preventDefault();
+            setIsManagerOpen(true);
+            break;
+          case 't':
+            e.preventDefault();
+            addEditor();
+            break;
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyboard);
+    return () => window.removeEventListener('keydown', handleKeyboard);
+  }, [addEditor]);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-20" />

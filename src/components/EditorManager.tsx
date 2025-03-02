@@ -10,10 +10,18 @@ const EditorManager: React.FC<EditorManagerProps> = ({ onClose }) => {
   const { editors, setActiveEditor, removeEditor, restoreEditor } = useEditorStore();
   const [searchTerm, setSearchTerm] = useState('');
   const modalRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null); // Add ref for search input
 
   const filteredEditors = editors.filter(editor =>
     editor.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Add useEffect for input focus
+  useEffect(() => {
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, []); // Empty dependency array means this runs once when component mounts
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -73,6 +81,7 @@ const EditorManager: React.FC<EditorManagerProps> = ({ onClose }) => {
               <Search size={18} className="text-gray-400" />
             </div>
             <input
+              ref={searchInputRef} // Add ref to input element
               type="text"
               placeholder="Search terminals..."
               className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
