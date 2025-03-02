@@ -1,0 +1,73 @@
+{
+  "title": "Action",
+  "description": "An action is something people can interact with in the world.",
+  "properties": [
+    {
+      "name": "label",
+      "type": "String",
+      "description": "The label shown to the user when they are nearby",
+      "default": "Interact"
+    },
+    {
+      "name": "distance",
+      "type": "Number",
+      "description": "The distance in meters that the action should be displayed. The engine will only ever show this if they are nearby AND there is no other action that is closer",
+      "default": 3
+    },
+    {
+      "name": "duration",
+      "type": "Number",
+      "description": "How long the player must hold down the interact button to trigger it, in seconds",
+      "default": 0.5
+    },
+    {
+      "name": "onStart",
+      "type": "Function",
+      "description": "The function to call when the interact button is first pressed"
+    },
+    {
+      "name": "onTrigger",
+      "type": "Function",
+      "description": "The function to call when the interact button has been held down for the full duration"
+    },
+    {
+      "name": "onCancel",
+      "type": "Function",
+      "description": "The function call if the interact button is released before the full duration"
+    }
+  ],
+  "snippets": [
+    {
+      "id": "basic-action",
+      "name": "Create Basic Action",
+      "description": "Create a basic action with default settings",
+      "code": "const action = app.create('Action', {\n  label: 'Interact',\n  distance: 3,\n  duration: 0.5\n})",
+      "language": "javascript",
+      "tags": ["action", "basic"]
+    },
+    {
+      "id": "action-with-handlers",
+      "name": "Action With Event Handlers",
+      "description": "Create an action with all event handlers",
+      "code": "const action = app.create('Action', {\n  label: 'Hold to Activate',\n  distance: 5,\n  duration: 1,\n  onStart: () => {\n    console.log('Player started interaction')\n  },\n  onTrigger: () => {\n    console.log('Action triggered!')\n  },\n  onCancel: () => {\n    console.log('Player cancelled interaction')\n  }\n})",
+      "language": "javascript",
+      "tags": ["action", "events"]
+    },
+    {
+      "id": "quick-action",
+      "name": "Quick Action",
+      "description": "Create an action with minimal duration",
+      "code": "const action = app.create('Action', {\n  label: 'Quick Press',\n  duration: 0.1,\n  onTrigger: () => {\n    console.log('Quick action triggered!')\n  }\n})",
+      "language": "javascript",
+      "tags": ["action", "quick"]
+    },
+    {
+      "id": "long-range-action",
+      "name": "Long Range Action",
+      "description": "Create an action visible from far away",
+      "code": "const action = app.create('Action', {\n  label: 'Far Interaction',\n  distance: 10,\n  onTrigger: () => {\n    console.log('Long range action triggered!')\n  }\n})",
+      "language": "javascript",
+      "tags": ["action", "distance"]
+    }
+  ]
+}

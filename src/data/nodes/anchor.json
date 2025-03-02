@@ -1,0 +1,46 @@
+{
+  "title": "Anchor",
+  "description": "For the most part, an anchor acts just like a group node. But more importantly they can be used to attach players to them, eg for seating or vehicles.",
+  "properties": [
+    {
+      "name": "id",
+      "type": "String",
+      "description": "Unique identifier for the anchor within your app",
+      "required": true
+    }
+  ],
+  "snippets": [
+    {
+      "id": "basic-anchor",
+      "name": "Create Basic Anchor",
+      "description": "Create an anchor with a unique ID",
+      "code": "const seat = app.create('Anchor', { id: 'seat' })",
+      "language": "javascript",
+      "tags": ["anchor", "basic"]
+    },
+    {
+      "id": "anchor-with-parent",
+      "name": "Add Anchor to Parent",
+      "description": "Create an anchor and add it to a parent node",
+      "code": "const seat = app.create('Anchor', { id: 'seat' })\ncar.add(seat)",
+      "language": "javascript",
+      "tags": ["anchor", "hierarchy"]
+    },
+    {
+      "id": "anchor-player",
+      "name": "Anchor Player",
+      "description": "Attach a player to an anchor",
+      "code": "const seat = app.create('Anchor', { id: 'seat' })\ncar.add(seat)\n\n// Attach player to anchor\nplayer.setEffect({ anchor: seat })",
+      "language": "javascript",
+      "tags": ["anchor", "player", "effect"]
+    },
+    {
+      "id": "remove-anchor",
+      "name": "Remove Player Anchor",
+      "description": "Remove player from an anchor",
+      "code": "// Remove player from anchor\nplayer.setEffect({ anchor: null })",
+      "language": "javascript",
+      "tags": ["anchor", "player", "effect"]
+    }
+  ]
+}

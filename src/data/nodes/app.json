@@ -1,0 +1,97 @@
+{
+  "title": "App",
+  "description": "The global app variable is always available within the app scripting runtime.",
+  "properties": [
+    {
+      "name": "instanceId",
+      "type": "String",
+      "description": "The instance ID of the current app. Every app has its own unique ID that is shared across all clients and the server.",
+      "readonly": true
+    },
+    {
+      "name": "version",
+      "type": "String",
+      "description": "The version of the app instance. This number is incremented whenever the app is modified which includes but is not limited to updating scripts and models.",
+      "readonly": true
+    },
+    {
+      "name": "state",
+      "type": "Object",
+      "description": "A plain old javascript object that you can use to store state in. The servers state object is sent to all new clients that connect in their initial snapshot, allowing clients to initialize correctly, eg in the right position/mode."
+    },
+    {
+      "name": "{...Node}",
+      "type": "Object",
+      "description": "Inherits all Node properties"
+    }
+  ],
+  "methods": [
+    {
+      "name": "on",
+      "signature": "on(name: string, callback: Function): void",
+      "description": "Subscribes to custom networked app events and engine update events like update, fixedUpdate and lateUpdate. Custom networked events are received when a different client/server sends an event with app.send(event, data). IMPORTANT: Only subscribe to update events when they are needed. The engine is optimized to completely skip over large amounts of apps that don't need to receive update events."
+    },
+    {
+      "name": "off",
+      "signature": "off(name: string, callback: Function): void",
+      "description": "Unsubscribes from custom events and update events. IMPORTANT: Be sure to unsubscribe from update events when they are not needed. The engine is optimized to completely skip over large amounts of apps that don't need to receive update events."
+    },
+    {
+      "name": "send",
+      "signature": "send(name: string, data: any, skipNetworkId?: string): void",
+      "description": "Sends an event across the network. If the caller is on the client, the event is sent to the server. The third argument skipNetworkId is a no-op here. If the caller is on the server, the event is sent to all clients, with the skipNetworkId argument allowing you to skip sending to one specific client."
+    },
+    {
+      "name": "get",
+      "signature": "get(nodeId: string): Node",
+      "description": "Finds and returns any node with the matching ID from the model the app is using. If your model is made with blender, this is the object \"name\". NOTE: Blender GLTF exporter renames objects in some cases, eg by removing spaces. Best practice is to simply name everything in UpperCamelCase with no other characters."
+    },
+    {
+      "name": "create",
+      "signature": "create(nodeName: string): Node",
+      "description": "Creates and returns a node of the specified name."
+    }
+  ],
+  "snippets": [
+    {
+      "id": "app-state-init",
+      "name": "Initialize App State",
+      "description": "Set up initial app state",
+      "code": "app.state = {\n  gameMode: 'lobby',\n  players: [],\n  score: 0\n}",
+      "language": "javascript",
+      "tags": ["app", "state"]
+    },
+    {
+      "id": "app-events",
+      "name": "App Event Handling",
+      "description": "Subscribe and unsubscribe to app events",
+      "code": "const onUpdate = () => {\n  // Called every frame\n}\n\n// Subscribe to update event\napp.on('update', onUpdate)\n\n// Unsubscribe when done\napp.off('update', onUpdate)",
+      "language": "javascript",
+      "tags": ["app", "events", "update"]
+    },
+    {
+      "id": "app-network-events",
+      "name": "Network Event Communication",
+      "description": "Send and receive network events",
+      "code": "// Send event\napp.send('playerJoined', { id: app.instanceId })\n\n// Receive event\napp.on('playerJoined', (data) => {\n  console.log(`Player ${data.id} joined`)\n})",
+      "language": "javascript",
+      "tags": ["app", "network", "events"]
+    },
+    {
+      "id": "app-node-management",
+      "name": "Node Management",
+      "description": "Create and get nodes",
+      "code": "// Create a new node\nconst newNode = app.create('Mesh')\n\n// Get existing node by ID\nconst existingNode = app.get('MyNodeId')",
+      "language": "javascript",
+      "tags": ["app", "nodes"]
+    },
+    {
+      "id": "app-version-check",
+      "name": "Version Check",
+      "description": "Check app version and instance",
+      "code": "console.log(`App Instance: ${app.instanceId}`)\nconsole.log(`App Version: ${app.version}`)",
+      "language": "javascript",
+      "tags": ["app", "version"]
+    }
+  ]
+}

@@ -24,6 +24,25 @@ export interface CodeSnippet {
   code: string;
   language: string;
   tags: string[];
+  category?: string;
+  nodeType?: string;
+  properties?: NodeProperty[];
+  methods?: NodeMethod[];
+}
+
+export interface NodeProperty {
+  name: string;
+  type: string;
+  description: string;
+  required?: boolean;
+  readonly?: boolean;
+  default?: any;
+}
+
+export interface NodeMethod {
+  name: string;
+  signature: string;
+  description: string;
 }
 
 // This is needed if your EditorWindow component uses EditorInstance

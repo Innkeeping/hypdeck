@@ -1,0 +1,204 @@
+{
+  "snippets": [
+    {
+      "id": "app-configure-wrapper",
+      "name": "App Configure Wrapper",
+      "description": "Base wrapper for app configuration",
+      "code": "app.configure([\n  // Add configuration items here\n])",
+      "language": "javascript",
+      "tags": ["configure", "wrapper"]
+    },
+    {
+      "id": "text-input-config",
+      "name": "Text Input Configuration",
+      "description": "Configure a text input field",
+      "code": "  {\n    key: 'textField',\n    type: 'text',\n    label: 'Text Input',\n    placeholder: 'Enter text here',\n    initial: 'Default text'\n  }",
+      "language": "javascript",
+      "tags": ["configure", "text", "input"]
+    },
+    {
+      "id": "textarea-config",
+      "name": "Textarea Configuration",
+      "description": "Configure a multi-line textarea input",
+      "code": "  {\n    key: 'textareaField',\n    type: 'textarea',\n    label: 'Textarea Input',\n    placeholder: 'Enter multiple lines here',\n    initial: 'Default text'\n  }",
+      "language": "javascript",
+      "tags": ["configure", "textarea", "input"]
+    },
+    {
+      "id": "number-input-config",
+      "name": "Number Input Configuration",
+      "description": "Configure a number input with math entry and stepping",
+      "code": "  {\n    key: 'numberField',\n    type: 'number',\n    label: 'Number Input',\n    dp: 2,\n    min: 0,\n    max: 100,\n    step: 0.5,\n    initial: 50\n  }",
+      "language": "javascript",
+      "tags": ["configure", "number", "input"]
+    },
+    {
+      "id": "range-slider-config",
+      "name": "Range Slider Configuration",
+      "description": "Configure a range slider input",
+      "code": "  {\n    key: 'rangeField',\n    type: 'range',\n    label: 'Range Slider',\n    min: 0,\n    max: 100,\n    step: 5,\n    initial: 50\n  }",
+      "language": "javascript",
+      "tags": ["configure", "range", "slider"]
+    },
+    {
+      "id": "switch-config",
+      "name": "Switch Configuration",
+      "description": "Configure a switch input with multiple options",
+      "code": "  {\n    key: 'switchField',\n    type: 'switch',\n    label: 'Switch Input',\n    options: [\n      {\n        label: 'Option 1',\n        value: 'opt1'\n      },\n      {\n        label: 'Option 2',\n        value: 'opt2'\n      },\n      {\n        label: 'Option 3',\n        value: 'opt3'\n      }\n    ],\n    initial: 'opt1'\n  }",
+      "language": "javascript",
+      "tags": ["configure", "switch", "input"]
+    },
+    {
+      "id": "dropdown-config",
+      "name": "Dropdown Configuration",
+      "description": "Configure a dropdown menu with options",
+      "code": "  {\n    key: 'dropdownField',\n    type: 'dropdown',\n    label: 'Dropdown Menu',\n    options: [\n      {\n        label: 'Option 1',\n        value: 'opt1'\n      },\n      {\n        label: 'Option 2',\n        value: 'opt2'\n      },\n      {\n        label: 'Option 3',\n        value: 'opt3'\n      }\n    ],\n    initial: 'opt1'\n  }",
+      "language": "javascript",
+      "tags": ["configure", "dropdown", "input"]
+    },
+    {
+      "id": "file-upload-config",
+      "name": "File Upload Configuration",
+      "description": "Configure a file upload field",
+      "code": "  {\n    key: 'fileField',\n    type: 'file',\n    label: 'File Upload',\n    kind: 'avatar' // can be: avatar, emote, model, texture, hdr, audio\n  }",
+      "language": "javascript",
+      "tags": ["configure", "file", "upload"]
+    },
+    {
+      "id": "section-config",
+      "name": "Section Configuration",
+      "description": "Configure a section header to group fields",
+      "code": "  {\n    type: 'section',\n    key: 'sectionName',\n    label: 'Section Header'\n  }",
+      "language": "javascript",
+      "tags": ["configure", "section", "layout"]
+    },
+    {
+      "id": "create-node",
+      "name": "Create Node",
+      "description": "Create a new node",
+      "code": "const newNode = app.create('NewNode');",
+      "language": "javascript",
+      "tags": ["node-basic", "create"]
+    },
+    {
+      "id": "add-child-node",
+      "name": "Add Child Node",
+      "description": "Add a node as a child of another node",
+      "code": "parentNode.add(childNode);",
+      "language": "javascript",
+      "tags": ["node-basic", "hierarchy"]
+    },
+    {
+      "id": "remove-child-node",
+      "name": "Remove Child Node",
+      "description": "Remove a child node",
+      "code": "parentNode.remove(childNode);",
+      "language": "javascript",
+      "tags": ["node-basic", "hierarchy"]
+    },
+    {
+      "id": "get-node-by-id",
+      "name": "Get Node By ID",
+      "description": "Find a node using its ID",
+      "code": "const node = app.get('NodeId');",
+      "language": "javascript",
+      "tags": ["node-basic", "utility"]
+    },
+    {
+      "id": "traverse-nodes",
+      "name": "Traverse Nodes",
+      "description": "Traverse through all child nodes",
+      "code": "node.traverse((child) => {\n  // Do something with each child node\n  console.log(child.id);\n});",
+      "language": "javascript",
+      "tags": ["node-basic", "traverse"]
+    },
+    {
+      "id": "set-position",
+      "name": "Set Position",
+      "description": "Set node position using Vector3",
+      "code": "node.position.set(0, 0, 0); // x, y, z",
+      "language": "javascript",
+      "tags": ["node-transform", "position"]
+    },
+    {
+      "id": "set-rotation-euler",
+      "name": "Set Rotation (Euler)",
+      "description": "Set node rotation using Euler angles",
+      "code": "node.rotation.set(0, 0, 0); // x, y, z in radians",
+      "language": "javascript",
+      "tags": ["node-transform", "rotation"]
+    },
+    {
+      "id": "set-rotation-quaternion",
+      "name": "Set Rotation (Quaternion)",
+      "description": "Set node rotation using Quaternion",
+      "code": "node.quaternion.set(0, 0, 0, 1); // x, y, z, w",
+      "language": "javascript",
+      "tags": ["node-transform", "rotation"]
+    },
+    {
+      "id": "set-scale",
+      "name": "Set Scale",
+      "description": "Set node scale using Vector3",
+      "code": "node.scale.set(1, 1, 1); // x, y, z",
+      "language": "javascript",
+      "tags": ["node-transform", "scale"]
+    },
+    {
+      "id": "update-event",
+      "name": "Update Event",
+      "description": "Subscribe to frame update event",
+      "code": "const onUpdate = () => {\n  // Called every frame\n};\napp.on('update', onUpdate);\n\n// Cleanup when done\n// app.off('update', onUpdate);",
+      "language": "javascript",
+      "tags": ["app-events", "update"]
+    },
+    {
+      "id": "fixed-update-event",
+      "name": "Fixed Update Event",
+      "description": "Subscribe to fixed update event (physics)",
+      "code": "const onFixedUpdate = () => {\n  // Called at fixed time intervals\n};\napp.on('fixedUpdate', onFixedUpdate);\n\n// Cleanup when done\n// app.off('fixedUpdate', onFixedUpdate);",
+      "language": "javascript",
+      "tags": ["app-events", "physics"]
+    },
+    {
+      "id": "network-event",
+      "name": "Network Event",
+      "description": "Send and receive network events",
+      "code": "// Send event\napp.send('customEvent', { data: 'someData' });\n\n// Receive event\nconst onCustomEvent = (data) => {\n  console.log('Received:', data);\n};\napp.on('customEvent', onCustomEvent);\n\n// Cleanup when done\n// app.off('customEvent', onCustomEvent);",
+      "language": "javascript",
+      "tags": ["app-events", "network"]
+    },
+    {
+      "id": "initialize-state",
+      "name": "Initialize State",
+      "description": "Set up initial app state",
+      "code": "app.state = {\n  gameState: 'lobby',\n  players: [],\n  score: 0\n};",
+      "language": "javascript",
+      "tags": ["app-state", "initialize"]
+    },
+    {
+      "id": "update-state",
+      "name": "Update State",
+      "description": "Update app state properties",
+      "code": "// Update simple property\napp.state.gameState = 'playing';\n\n// Update array\napp.state.players.push({\n  id: app.instanceId,\n  name: 'Player'\n});",
+      "language": "javascript",
+      "tags": ["app-state", "update"]
+    },
+    {
+      "id": "rotate-animation",
+      "name": "Rotate Animation",
+      "description": "Continuously rotate a node",
+      "code": "const onUpdate = () => {\n  node.rotation.y += 0.01;\n};\napp.on('update', onUpdate);\n\n// Cleanup when done\n// app.off('update', onUpdate);",
+      "language": "javascript",
+      "tags": ["node-animation", "rotation"]
+    },
+    {
+      "id": "oscillate-position",
+      "name": "Oscillate Position",
+      "description": "Make a node oscillate up and down",
+      "code": "const onUpdate = () => {\n  node.position.y = Math.sin(Date.now() * 0.001) * 0.5;\n};\napp.on('update', onUpdate);\n\n// Cleanup when done\n// app.off('update', onUpdate);",
+      "language": "javascript",
+      "tags": ["node-animation", "position"]
+    }
+  ]
+}
