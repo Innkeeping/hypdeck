@@ -126,10 +126,19 @@ export const useSnippetManager = () => {
 
       const wrapperSnippet = snippets.find(s => s.name === 'App Configure Wrapper');
       if (wrapperSnippet) {
-        updateEditorContent(editorId, wrapperSnippet.code.replace(
+        // Create new content with configuration at the top
+        const newContent = wrapperSnippet.code.replace(
           '  // Add configuration items here',
           snippetCode
-        ));
+        );
+
+        // If there's existing content, append it after the configuration
+        if (editor.content.trim()) {
+          updateEditorContent(editorId, `${newContent}\n\n${editor.content}`);
+        } else {
+          updateEditorContent(editorId, newContent);
+        }
+
         setNotification({
           message: 'Configuration added successfully',
           type: 'success'
@@ -154,11 +163,20 @@ export const useSnippetManager = () => {
     const editor = editors.find(e => e.id === editorId);
     if (!editor) return;
 
-    const currentContent = editor.content;
-    const newContent = currentContent.replace(
-      /\n\]\)$/,
-      `,\n  ${snippetCode}\n])`
-    );
+    // Find the position of app.configure
+    const configureIndex = editor.content.indexOf('app.configure');
+    if (configureIndex === -1) return;
+
+    // Find the end of the configuration block
+    const closingBracketIndex = editor.content.indexOf('])', configureIndex);
+    if (closingBracketIndex === -1) return;
+
+    // Insert the new configuration before the closing bracket
+    const newContent =
+      editor.content.slice(0, closingBracketIndex) +
+      `,\n  ${snippetCode}` +
+      editor.content.slice(closingBracketIndex);
+
     updateEditorContent(editorId, newContent);
     setNotification({
       message: 'Configuration added to existing setup',
@@ -175,10 +193,28 @@ export const useSnippetManager = () => {
     const { snippetCode, editorId } = showActionDialog;
     const wrapperSnippet = snippets.find(s => s.name === 'App Configure Wrapper');
     if (wrapperSnippet) {
-      updateEditorContent(editorId, wrapperSnippet.code.replace(
+      const editor = editors.find(e => e.id === editorId);
+      if (!editor) return;
+
+      // Create new content with configuration at the top
+      const newConfigContent = wrapperSnippet.code.replace(
         '  // Add configuration items here',
         snippetCode
-      ));
+      );
+
+      // Find the end of the existing configuration block
+      const configureIndex = editor.content.indexOf('app.configure');
+      const closingBracketIndex = editor.content.indexOf('])', configureIndex);
+
+      // Get any content after the configuration block
+      const afterConfig = editor.content.slice(closingBracketIndex + 2).trim();
+
+      // Combine new configuration with existing content
+      const newContent = afterConfig
+        ? `${newConfigContent}\n\n${afterConfig}`
+        : newConfigContent;
+
+      updateEditorContent(editorId, newContent);
       setNotification({
         message: 'Configuration replaced successfully',
         type: 'success'
