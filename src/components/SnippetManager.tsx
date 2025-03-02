@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Search, X, Code, Copy, Tag, Terminal, ChevronDown } from 'lucide-react';
+import { Search, X, Code, Copy, Tag, Terminal, ChevronDown, Check } from 'lucide-react';
 import { useSnippetStore } from '../store/snippetStore';
 import { useEditorStore } from '../store/editorStore';
 import type { CodeSnippet } from '../types';
+import { CATEGORIES } from '../store/categories';
 
 interface SnippetManagerProps {
   onClose: () => void;
@@ -13,11 +14,6 @@ interface ActionDialogState {
   editorId: string;
 }
 
-const CATEGORIES = [
-  { id: 'app-configure', name: 'app.configure', tag: 'configure' }
-  // We'll add more categories later
-];
-
 const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
   const { snippets } = useSnippetStore();
   const { editors, appendToEditor, updateEditorContent } = useEditorStore();
@@ -27,6 +23,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
   const [selectedTerminalId, setSelectedTerminalId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+  const [isTagDropdownOpen, setIsTagDropdownOpen] = useState(false);
   const [showActionDialog, setShowActionDialog] = useState<ActionDialogState | null>(null);
 
   // Get unique tags from all snippets
@@ -70,36 +67,35 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     );
   };
 
-  const handleSendToTerminal = (snippetCode: string, editorId: string, isConfigSnippet: boolean): void => {
-    const editor = editors.find(e => e.id === editorId);
-    if (!editor) return;
+// Remove or comment out the onClose() call in handleSendToTerminal
+const handleSendToTerminal = (snippetCode: string, editorId: string, isConfigSnippet: boolean): void => {
+  const editor = editors.find(e => e.id === editorId);
+  if (!editor) return;
 
-    if (isConfigSnippet) {
-      // If there's already a configure snippet in the selected terminal
-      if (editor.content.includes('app.configure')) {
-        setShowActionDialog({ snippetCode, editorId });
-        return;
-      }
-
-      // If this is the first configure snippet
-      const wrapperSnippet = snippets.find(s => s.name === 'App Configure Wrapper');
-      if (wrapperSnippet) {
-        updateEditorContent(editorId, wrapperSnippet.code.replace(
-          '  // Add configuration items here',
-          snippetCode
-        ));
-      }
-      setSelectedTerminalId(editorId);
-    } else {
-      // For non-configure snippets, just append
-      appendToEditor(editorId, snippetCode);
+  if (isConfigSnippet) {
+    // If there's already a configure snippet in the selected terminal
+    if (editor.content.includes('app.configure')) {
+      setShowActionDialog({ snippetCode, editorId });
+      return;
     }
 
-    setOpenDropdownId(null);
-    if (!isConfigSnippet) {
-      onClose();
+    // If this is the first configure snippet
+    const wrapperSnippet = snippets.find(s => s.name === 'App Configure Wrapper');
+    if (wrapperSnippet) {
+      updateEditorContent(editorId, wrapperSnippet.code.replace(
+        '  // Add configuration items here',
+        snippetCode
+      ));
     }
-  };
+    setSelectedTerminalId(editorId);
+  } else {
+    // For non-configure snippets, just append
+    appendToEditor(editorId, snippetCode);
+  }
+
+  setOpenDropdownId(null);
+
+};
 
   const handleAddToExisting = (): void => {
     if (!showActionDialog) return;
@@ -213,24 +209,66 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2">
-            {allTags.map(tag => (
+          {/* Tags Dropdown */}
+          <div className="flex gap-4">
+            <div className="relative">
               <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={`px-3 py-1 rounded-full text-sm font-mono transition-colors ${
-                  selectedTags.includes(tag)
-                    ? 'bg-cyan-500 text-white'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                }`}
+                onClick={() => setIsTagDropdownOpen(!isTagDropdownOpen)}
+                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent flex items-center space-x-2 min-w-[200px]"
               >
-                <div className="flex items-center space-x-1">
-                  <Tag size={14} />
-                  <span>{tag}</span>
-                </div>
+                <Tag size={16} />
+                <span>Select Tags ({selectedTags.length})</span>
+                <ChevronDown
+                  size={16}
+                  className={`ml-2 transition-transform ${isTagDropdownOpen ? 'rotate-180' : ''}`}
+                />
               </button>
-            ))}
+
+              {isTagDropdownOpen && (
+                <>
+                  <div className="absolute top-full mt-1 w-64 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50 max-h-[300px] overflow-y-auto">
+                    {allTags.map(tag => (
+                      <button
+                        key={tag}
+                        onClick={() => toggleTag(tag)}
+                        className="w-full px-4 py-2 text-left text-sm hover:bg-gray-700 flex items-center justify-between"
+                      >
+                        <span className={`${selectedTags.includes(tag) ? 'text-cyan-400' : 'text-gray-300'}`}>
+                          {tag}
+                        </span>
+                        {selectedTags.includes(tag) && (
+                          <div className="text-cyan-400">
+                            <Check size={16} />
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setIsTagDropdownOpen(false)}
+                  />
+                </>
+              )}
+            </div>
+
+            {/* Selected Tags Display */}
+            <div className="flex flex-wrap gap-2 flex-1">
+              {selectedTags.map(tag => (
+                <span
+                  key={tag}
+                  className="px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono flex items-center gap-1"
+                >
+                  {tag}
+                  <button
+                    onClick={() => toggleTag(tag)}
+                    className="hover:text-white"
+                  >
+                    <X size={12} />
+                  </button>
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -387,12 +425,13 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
       )}
 
       {/* Click outside handlers */}
-      {(openDropdownId || isCategoryDropdownOpen) && (
+      {(openDropdownId || isCategoryDropdownOpen || isTagDropdownOpen) && (
         <div
           className="fixed inset-0 z-40"
           onClick={() => {
             setOpenDropdownId(null);
             setIsCategoryDropdownOpen(false);
+            setIsTagDropdownOpen(false);
           }}
         />
       )}
