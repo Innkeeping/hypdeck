@@ -49,17 +49,43 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     }
   }, [selectedCategory]);
 
-  // Handle click outside
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
+  // Handle click outside and escape key
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        if (openDropdownId || isCategoryDropdownOpen || isTagDropdownOpen) {
+          setOpenDropdownId(null);
+          setIsCategoryDropdownOpen(false);
+          setIsTagDropdownOpen(false);
+        } else {
+          onClose();
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [onClose, openDropdownId, isCategoryDropdownOpen, isTagDropdownOpen]);
 
   return (
     <div
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
-      onClick={handleBackdropClick}
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[9999]"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
     >
       <div
         ref={modalRef}
@@ -138,7 +164,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
           />
         )}
 
-        {/* Click outside handlers */}
+        {/* Click outside handlers for dropdowns */}
         {(openDropdownId || isCategoryDropdownOpen || isTagDropdownOpen) && (
           <div
             className="fixed inset-0 z-40"

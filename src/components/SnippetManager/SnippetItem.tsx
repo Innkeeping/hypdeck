@@ -1,11 +1,11 @@
 import React from 'react';
 import { Copy, Terminal } from 'lucide-react';
 import type { CodeSnippet } from './types';
-import type { EditorInstance } from '../../types';
+import type { Editor } from '../../types';
 
 interface SnippetItemProps {
   snippet: CodeSnippet;
-  availableEditors: EditorInstance[];
+  availableEditors: Editor[];
   selectedTerminalId: string | null;
   openDropdownId: string | null;
   setOpenDropdownId: (id: string | null) => void;

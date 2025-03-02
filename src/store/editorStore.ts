@@ -1,170 +1,149 @@
 import { create } from 'zustand';
-import { EditorInstance } from '../types';
-import { nanoid } from '../utils/nanoid';
+import { v4 as uuidv4 } from 'uuid';
+import { persist } from 'zustand/middleware';
+import type { Editor, Position } from '../types';
 
-interface EditorStore {
-  editors: EditorInstance[];
-  activeEditorId: string | null;
-  maxZIndex: number;
+type EditorUpdates = Partial<Editor>;
+
+export const useEditorStore = create<{
+  editors: Editor[];
   addEditor: () => void;
   removeEditor: (id: string) => void;
-  updateEditor: (id: string, updates: Partial<EditorInstance>) => void;
-  setActiveEditor: (id: string) => void;
+  updateEditor: (id: string, updates: EditorUpdates) => void;
   updateEditorContent: (id: string, content: string) => void;
   updateEditorName: (id: string, name: string) => void;
-  bringToFront: (id: string) => void;
+  appendToEditor: (id: string, content: string) => void;
   minimizeEditor: (id: string) => void;
+  maximizeEditor: (id: string) => void;
+  bringToFront: (id: string) => void;
   restoreEditor: (id: string) => void;
-  getMinimizedEditors: () => EditorInstance[];
-  // New functions for snippet handling
-  insertIntoEditor: (editorId: string, content: string) => void;
-  getActiveEditor: () => EditorInstance | null;
-  getNonMinimizedEditors: () => EditorInstance[];
-  appendToEditor: (editorId: string, content: string) => void;
-  setEditorLanguage: (editorId: string, language: string) => void;
-}
+  setActiveEditor: (id: string) => void;
+}>()(
+  persist(
+    (set) => ({
+      editors: [{
+        id: uuidv4(),
+        name: 'Terminal 1',
+        content: '',
+        language: 'typescript',
+        position: { x: 0, y: 0 },
+        zIndex: 1,
+        width: 600,
+        height: 400,
+        isActive: true,
+        isMinimized: false
+      }],
 
-export const useEditorStore = create<EditorStore>((set, get) => ({
-  editors: [],
-  activeEditorId: null,
-  maxZIndex: 0,
+      addEditor: () =>
+        set((state) => {
+          const newEditorNumber = state.editors.length + 1;
+          return {
+            editors: [
+              ...state.editors,
+              {
+                id: uuidv4(),
+                name: `Terminal ${newEditorNumber}`,
+                content: '',
+                language: 'typescript',
+                position: { x: 20 * newEditorNumber, y: 20 * newEditorNumber },
+                zIndex: state.editors.length + 1,
+                width: 600,
+                height: 400,
+                isActive: true,
+                isMinimized: false
+              },
+            ],
+          };
+        }),
 
-  addEditor: () => set((state) => {
-    const newZIndex = state.maxZIndex + 1;
-    const newEditor: EditorInstance = {
-      id: nanoid(),
-      name: `Terminal ${state.editors.length + 1}`,
-      content: '// Start coding here',
-      language: 'javascript',
-      position: {
-        x: 50 + (state.editors.length * 20),
-        y: 50 + (state.editors.length * 20),
-      },
-      zIndex: newZIndex,
-      width: 600,
-      height: 400,
-      isActive: true,
-      isMinimized: false,
-    };
+      removeEditor: (id: string) =>
+        set((state) => ({
+          editors: state.editors.filter((editor) => editor.id !== id),
+        })),
 
-    return {
-      editors: [...state.editors.map(e => ({ ...e, isActive: false })), newEditor],
-      activeEditorId: newEditor.id,
-      maxZIndex: newZIndex,
-    };
-  }),
+      updateEditor: (id: string, updates: EditorUpdates) =>
+        set((state) => ({
+          editors: state.editors.map((editor) =>
+            editor.id === id
+              ? { ...editor, ...updates, isActive: true }
+              : { ...editor, isActive: false }
+          ),
+        })),
 
-  removeEditor: (id) => set((state) => ({
-    editors: state.editors.filter((editor) => editor.id !== id),
-    activeEditorId: state.activeEditorId === id ? null : state.activeEditorId,
-  })),
+      updateEditorContent: (id: string, content: string) =>
+        set((state) => ({
+          editors: state.editors.map((editor) =>
+            editor.id === id ? { ...editor, content } : editor
+          ),
+        })),
 
-  updateEditor: (id, updates) => set((state) => ({
-    editors: state.editors.map((editor) =>
-      editor.id === id ? { ...editor, ...updates } : editor
-    ),
-  })),
+      updateEditorName: (id: string, name: string) =>
+        set((state) => ({
+          editors: state.editors.map((editor) =>
+            editor.id === id ? { ...editor, name } : editor
+          ),
+        })),
 
-  setActiveEditor: (id) => set((state) => ({
-    editors: state.editors.map((editor) => ({
-      ...editor,
-      isActive: editor.id === id,
-    })),
-    activeEditorId: id,
-  })),
+      appendToEditor: (id: string, content: string) =>
+        set((state) => ({
+          editors: state.editors.map((editor) =>
+            editor.id === id
+              ? {
+                  ...editor,
+                  content: editor.content
+                    ? `${editor.content}\n${content}`
+                    : content,
+                }
+              : editor
+          ),
+        })),
 
-  updateEditorContent: (id, content) => set((state) => ({
-    editors: state.editors.map((editor) =>
-      editor.id === id ? { ...editor, content } : editor
-    ),
-  })),
+      minimizeEditor: (id: string) =>
+        set((state) => ({
+          editors: state.editors.map((editor) =>
+            editor.id === id ? { ...editor, isMinimized: true } : editor
+          ),
+        })),
 
-  updateEditorName: (id, name) => set((state) => ({
-    editors: state.editors.map((editor) =>
-      editor.id === id ? { ...editor, name } : editor
-    ),
-  })),
+      maximizeEditor: (id: string) =>
+        set((state) => ({
+          editors: state.editors.map((editor) =>
+            editor.id === id ? { ...editor, isMinimized: false } : editor
+          ),
+        })),
 
-  bringToFront: (id) => set((state) => {
-    const newZIndex = state.maxZIndex + 1;
-    return {
-      editors: state.editors.map((editor) =>
-        editor.id === id ? { ...editor, zIndex: newZIndex, isActive: true } : { ...editor, isActive: false }
-      ),
-      activeEditorId: id,
-      maxZIndex: newZIndex,
-    };
-  }),
-
-  minimizeEditor: (id) => set((state) => ({
-    editors: state.editors.map((editor) =>
-      editor.id === id ? { ...editor, isMinimized: true } : editor
-    ),
-  })),
-
-  restoreEditor: (id) => set((state) => ({
-    editors: state.editors.map((editor) =>
-      editor.id === id ? { ...editor, isMinimized: false } : editor
-    ),
-  })),
-
-  getMinimizedEditors: () => {
-    return get().editors.filter(editor => editor.isMinimized);
-  },
-
-  // New functions for snippet handling
-  insertIntoEditor: (editorId: string, content: string) => {
-    const { editors } = get();
-    const editor = editors.find(e => e.id === editorId);
-    if (editor) {
-      set((state) => ({
-        editors: state.editors.map((e) =>
-          e.id === editorId ? {
-            ...e,
-            content: content
-          } : e
-        ),
-      }));
-      // Automatically bring the editor to front when inserting content
-      get().bringToFront(editorId);
+      bringToFront: (id: string) =>
+        set((state) => {
+          const maxZIndex = Math.max(...state.editors.map(e => e.zIndex));
+          return {
+            editors: state.editors.map((editor) =>
+              editor.id === id
+                ? { ...editor, zIndex: maxZIndex + 1, isActive: true }
+                : { ...editor, isActive: false }
+            ),
+          };
+        }),
+        restoreEditor: (id) => set((state) => ({
+          editors: state.editors.map((editor) =>
+            editor.id === id ? { ...editor, isMinimized: false } : editor
+          )
+        })),
+        setActiveEditor: (id) => set((state) => {
+          const maxZIndex = Math.max(...state.editors.map(e => e.zIndex));
+          return {
+            editors: state.editors.map((editor) =>
+              editor.id === id
+                ? { ...editor, isActive: true, zIndex: maxZIndex + 1 }
+                : { ...editor, isActive: false }
+            )
+          };
+        }),
+    }),
+    {
+      name: 'editor-storage',
+      partialize: (state) => ({
+        editors: state.editors,
+      }),
     }
-  },
-
-  appendToEditor: (editorId: string, content: string) => {
-    const { editors } = get();
-    const editor = editors.find(e => e.id === editorId);
-    if (editor) {
-      const newContent = editor.content
-        ? `${editor.content}\n${content}`
-        : content;
-
-      set((state) => ({
-        editors: state.editors.map((e) =>
-          e.id === editorId ? {
-            ...e,
-            content: newContent
-          } : e
-        ),
-      }));
-      // Automatically bring the editor to front when appending content
-      get().bringToFront(editorId);
-    }
-  },
-
-  getActiveEditor: () => {
-    const { editors, activeEditorId } = get();
-    return editors.find(editor => editor.id === activeEditorId) || null;
-  },
-
-  getNonMinimizedEditors: () => {
-    return get().editors.filter(editor => !editor.isMinimized);
-  },
-
-  setEditorLanguage: (editorId: string, language: string) => {
-    set((state) => ({
-      editors: state.editors.map((editor) =>
-        editor.id === editorId ? { ...editor, language } : editor
-      ),
-    }));
-  },
-}));
+  )
+);

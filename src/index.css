@@ -32,7 +32,7 @@ body {
   background: #0f9b98;
 }
 
-/* Monaco editor customizations */
+/* Monaco editor styles */
 .monaco-editor .margin {
   background-color: #1a1a2e !important;
 }
@@ -41,9 +41,55 @@ body {
   background-color: #1a1a2e !important;
 }
 
-/* Static noise background */
+.monaco-editor {
+  overflow: hidden !important;
+}
+
+.monaco-scrollable-element {
+  overflow: hidden !important;
+}
+
+/* .monaco-scrollable-element > .scrollbar > .slider {
+  background: #0caba8 !important;
+  border-radius: 4px !important;
+} */
+
+.monaco-scrollable-element > .scrollbar > .slider:hover {
+  background: #0f9b98 !important;
+}
+
+/* Background patterns */
+.bg-grid {
+  background-size: 60px 60px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
 .bg-noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
+}
+
+/* Editor container */
+.editor-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.editor-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prevent text selection during drag */
+.editor-handle {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Prevent unwanted text selection during resize */
+.absolute {
+  user-select: none;
+  -webkit-user-select: none;
 }

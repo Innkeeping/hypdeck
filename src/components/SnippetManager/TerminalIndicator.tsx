@@ -1,11 +1,11 @@
 import React from 'react';
 import { Terminal, X } from 'lucide-react';
-import type { EditorInstance } from '../../types';
+import type { Editor } from '../../types';
 
 interface TerminalIndicatorProps {
   selectedTerminalId: string | null;
   setSelectedTerminalId: (id: string | null) => void;
-  editors: EditorInstance[];
+  editors: Editor[];
 }
 
 export const TerminalIndicator: React.FC<TerminalIndicatorProps> = ({

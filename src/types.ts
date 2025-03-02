@@ -3,7 +3,7 @@ export interface Position {
   y: number;
 }
 
-export interface EditorInstance {
+export interface Editor {
   id: string;
   name: string;
   content: string;
@@ -24,3 +24,6 @@ export interface CodeSnippet {
   language: string;
   tags: string[];
 }
+
+// This is needed if your EditorWindow component uses EditorInstance
+export type EditorInstance = Editor;
