@@ -8,6 +8,11 @@ interface SnippetManagerProps {
   onClose: () => void;
 }
 
+interface ActionDialogState {
+  snippetCode: string;
+  editorId: string;
+}
+
 const CATEGORIES = [
   { id: 'app-configure', name: 'app.configure', tag: 'configure' }
   // We'll add more categories later
@@ -22,10 +27,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
   const [selectedTerminalId, setSelectedTerminalId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
-  const [showActionDialog, setShowActionDialog] = useState<{
-    snippetCode: string;
-    editorId: string;
-  } | null>(null);
+  const [showActionDialog, setShowActionDialog] = useState<ActionDialogState | null>(null);
 
   // Get unique tags from all snippets
   const allTags = Array.from(
@@ -52,7 +54,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     return matchesSearch && matchesTags && matchesCategory;
   });
 
-  const handleCopyCode = async (code: string) => {
+  const handleCopyCode = async (code: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(code);
     } catch (err) {
@@ -60,7 +62,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     }
   };
 
-  const toggleTag = (tag: string) => {
+  const toggleTag = (tag: string): void => {
     setSelectedTags(prev =>
       prev.includes(tag)
         ? prev.filter(t => t !== tag)
@@ -68,7 +70,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     );
   };
 
-  const handleSendToTerminal = (snippetCode: string, editorId: string, isConfigSnippet: boolean) => {
+  const handleSendToTerminal = (snippetCode: string, editorId: string, isConfigSnippet: boolean): void => {
     const editor = editors.find(e => e.id === editorId);
     if (!editor) return;
 
@@ -99,7 +101,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     }
   };
 
-  const handleAddToExisting = () => {
+  const handleAddToExisting = (): void => {
     if (!showActionDialog) return;
 
     const { snippetCode, editorId } = showActionDialog;
@@ -107,16 +109,17 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     if (!editor) return;
 
     const currentContent = editor.content;
+    // Replace the closing brackets with the new snippet, maintaining proper formatting
     const newContent = currentContent.replace(
-      /\]\)$/,
-      `,\n${snippetCode}\n])`
+      /\n\]\)$/,
+      `,\n  ${snippetCode}\n])`
     );
     updateEditorContent(editorId, newContent);
     setShowActionDialog(null);
     setSelectedTerminalId(editorId);
   };
 
-  const handleReplace = () => {
+  const handleReplace = (): void => {
     if (!showActionDialog) return;
 
     const { snippetCode, editorId } = showActionDialog;
@@ -131,7 +134,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     setSelectedTerminalId(editorId);
   };
 
-  const isConfigureSnippet = (snippet: CodeSnippet) => {
+  const isConfigureSnippet = (snippet: CodeSnippet): boolean => {
     return snippet.tags.includes('configure') && snippet.name !== 'App Configure Wrapper';
   };
 
