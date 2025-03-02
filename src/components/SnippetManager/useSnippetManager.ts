@@ -27,16 +27,32 @@ export const useSnippetManager = () => {
     type: 'success' | 'error';
   } | null>(null);
 
-  // Memoized filtered categories
+  // Memoized filtered categories with auto-selection
   const filteredCategories = useMemo(() => {
     if (!categorySearchTerm) return CATEGORIES;
     const searchLower = categorySearchTerm.toLowerCase();
-    return CATEGORIES.filter(category =>
+    const filtered = CATEGORIES.filter(category =>
       category.name.toLowerCase().includes(searchLower) ||
       category.id.toLowerCase().includes(searchLower) ||
       (category.tag && category.tag.toLowerCase().includes(searchLower))
     );
+
+    // Auto-select category if there's exactly one match
+    if (filtered.length === 1 && categorySearchTerm.length > 0) {
+      setSelectedCategory(filtered[0].id);
+    }
+    // Clear category selection if search is cleared
+    else if (categorySearchTerm === '' && filtered.length === CATEGORIES.length) {
+      setSelectedCategory(null);
+    }
+
+    return filtered;
   }, [categorySearchTerm]);
+
+  // Reset snippet search when category changes
+  useEffect(() => {
+    setSearchTerm('');
+  }, [selectedCategory]);
 
   // Get unique tags from all snippets
   const allTags = useMemo(() =>
@@ -46,28 +62,31 @@ export const useSnippetManager = () => {
   // Get available editors (non-minimized)
   const availableEditors = editors.filter(editor => !editor.isMinimized);
 
-  // Filter snippets based on search term, selected category, and tags
+  // Filter snippets based on category, search term, and tags
   const filteredSnippets = useMemo(() => {
     return snippets.filter(snippet => {
-      const searchLower = searchTerm.toLowerCase();
-
-      // Check if snippet matches search term
-      const matchesSearch = searchTerm === '' ||
-        snippet.name.toLowerCase().includes(searchLower) ||
-        snippet.description.toLowerCase().includes(searchLower) ||
-        snippet.tags.some(tag => tag.toLowerCase().includes(searchLower));
-
-      // Check if snippet matches selected tags
-      const matchesTags = selectedTags.length === 0 ||
-        selectedTags.every(tag => snippet.tags.includes(tag));
-
-      // Check if snippet matches selected category
+      // First check category match
       const categoryTag = selectedCategory
         ? CATEGORIES.find(c => c.id === selectedCategory)?.tag
         : null;
       const matchesCategory = !categoryTag || snippet.tags.includes(categoryTag);
 
-      return matchesSearch && matchesTags && matchesCategory;
+      // Only continue filtering if category matches
+      if (!matchesCategory) return false;
+
+      const searchLower = searchTerm.toLowerCase();
+
+      // Then check search term match
+      const matchesSearch = searchTerm === '' ||
+        snippet.name.toLowerCase().includes(searchLower) ||
+        snippet.description.toLowerCase().includes(searchLower) ||
+        snippet.tags.some(tag => tag.toLowerCase().includes(searchLower));
+
+      // Finally check tags match
+      const matchesTags = selectedTags.length === 0 ||
+        selectedTags.every(tag => snippet.tags.includes(tag));
+
+      return matchesSearch && matchesTags;
     });
   }, [snippets, searchTerm, selectedTags, selectedCategory]);
 
@@ -170,6 +189,11 @@ export const useSnippetManager = () => {
     setOpenDropdownId(null);
   };
 
+  const handleClearCategorySearch = () => {
+    setCategorySearchTerm('');
+    setSelectedCategory(null);
+  };
+
   const isConfigureSnippet = (snippet: CodeSnippet): boolean => {
     return snippet.tags.includes('configure') && snippet.name !== 'App Configure Wrapper';
   };
@@ -213,5 +237,6 @@ export const useSnippetManager = () => {
     handleAddToExisting,
     handleReplace,
     isConfigureSnippet,
+    handleClearCategorySearch,
   };
 };
