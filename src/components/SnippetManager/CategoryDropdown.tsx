@@ -9,19 +9,27 @@ interface CategoryDropdownProps {
   setIsOpen: (isOpen: boolean) => void;
   setSelectedTerminalId: (id: string | null) => void;
   filteredCategories: typeof CATEGORIES;
+  snippetListRef: React.RefObject<HTMLDivElement>;
+  snippetSearchRef: React.RefObject<HTMLInputElement>;
+  onCategorySelect: (
+    categoryId: string | null,
+    snippetListRef: React.RefObject<HTMLDivElement>,
+    snippetSearchRef: React.RefObject<HTMLInputElement>
+  ) => void;
 }
 
 export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
   selectedCategory,
-  setSelectedCategory,
   isOpen,
   setIsOpen,
   setSelectedTerminalId,
-  filteredCategories
+  filteredCategories,
+  snippetListRef,
+  snippetSearchRef,
+  onCategorySelect
 }) => {
   const handleCategorySelect = (categoryId: string | null) => {
-    setSelectedCategory(categoryId);
-    setIsOpen(false);
+    onCategorySelect(categoryId, snippetListRef, snippetSearchRef);
     setSelectedTerminalId(null);
   };
 
@@ -92,12 +100,6 @@ export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
                 )}
               </button>
             ))}
-
-            {filteredCategories.length === 0 && (
-              <div className="px-4 py-3 text-sm text-gray-400 flex items-center justify-center">
-                No categories found
-              </div>
-            )}
           </div>
         </div>
       )}

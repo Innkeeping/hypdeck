@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, RefObject } from 'react';
 import { useSnippetStore } from '../../store/snippetStore';
 import { useEditorStore } from '../../store/editorStore';
 import type { CodeSnippet, ActionDialogState } from './types';
@@ -26,6 +26,25 @@ export const useSnippetManager = () => {
     message: string;
     type: 'success' | 'error';
   } | null>(null);
+
+  const handleCategorySelect = (
+    categoryId: string | null,
+    snippetListRef: RefObject<HTMLDivElement>,
+    snippetSearchRef: RefObject<HTMLInputElement>
+  ): void => {
+    setSelectedCategory(categoryId);
+    setIsCategoryDropdownOpen(false);
+
+    // Reset scroll position to top
+    if (snippetListRef.current) {
+      snippetListRef.current.scrollTop = 0;
+    }
+
+    // Focus the snippet search input
+    setTimeout(() => {
+      snippetSearchRef.current?.focus();
+    }, 100);
+  };
 
   // Memoized filtered categories with auto-selection
   const filteredCategories = useMemo(() => {
@@ -274,5 +293,6 @@ export const useSnippetManager = () => {
     handleReplace,
     isConfigureSnippet,
     handleClearCategorySearch,
+    handleCategorySelect,
   };
 };

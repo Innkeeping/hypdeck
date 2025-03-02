@@ -46,16 +46,8 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     handleReplace,
     isConfigureSnippet,
     handleClearCategorySearch,
+    handleCategorySelect,
   } = useSnippetManager();
-
-  // Auto-focus category search on mount
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      categorySearchRef.current?.focus();
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   // Handle arrow key navigation between search bars
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, direction: 'up' | 'down') => {
@@ -123,6 +115,9 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
                 setIsOpen={setIsCategoryDropdownOpen}
                 setSelectedTerminalId={setSelectedTerminalId}
                 filteredCategories={filteredCategories}
+                snippetListRef={snippetListRef}
+                snippetSearchRef={snippetSearchRef}
+                onCategorySelect={handleCategorySelect}
               />
 
               <TagsDropdown
