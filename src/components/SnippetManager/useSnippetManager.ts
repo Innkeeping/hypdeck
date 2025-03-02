@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSnippetStore } from '../../store/snippetStore';
 import { useEditorStore } from '../../store/editorStore';
 import type { CodeSnippet, ActionDialogState } from './types';
@@ -7,11 +7,18 @@ import { CATEGORIES } from '../../store/categories';
 export const useSnippetManager = () => {
   const { snippets } = useSnippetStore();
   const { editors, appendToEditor, updateEditorContent } = useEditorStore();
+
+  // Search states
   const [searchTerm, setSearchTerm] = useState('');
+  const [categorySearchTerm, setCategorySearchTerm] = useState('');
+
+  // Filter states
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  // UI states
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
   const [selectedTerminalId, setSelectedTerminalId] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isTagDropdownOpen, setIsTagDropdownOpen] = useState(false);
   const [showActionDialog, setShowActionDialog] = useState<ActionDialogState | null>(null);
@@ -20,30 +27,49 @@ export const useSnippetManager = () => {
     type: 'success' | 'error';
   } | null>(null);
 
+  // Memoized filtered categories
+  const filteredCategories = useMemo(() => {
+    if (!categorySearchTerm) return CATEGORIES;
+    const searchLower = categorySearchTerm.toLowerCase();
+    return CATEGORIES.filter(category =>
+      category.name.toLowerCase().includes(searchLower) ||
+      category.id.toLowerCase().includes(searchLower) ||
+      (category.tag && category.tag.toLowerCase().includes(searchLower))
+    );
+  }, [categorySearchTerm]);
+
   // Get unique tags from all snippets
-  const allTags = Array.from(
-    new Set(snippets.flatMap(snippet => snippet.tags))
-  );
+  const allTags = useMemo(() =>
+    Array.from(new Set(snippets.flatMap(snippet => snippet.tags)))
+  , [snippets]);
 
   // Get available editors (non-minimized)
   const availableEditors = editors.filter(editor => !editor.isMinimized);
 
-  // Filter snippets based on category, tags, and search
-  const filteredSnippets = snippets.filter(snippet => {
-    const matchesSearch =
-      snippet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      snippet.description.toLowerCase().includes(searchTerm.toLowerCase());
+  // Filter snippets based on search term, selected category, and tags
+  const filteredSnippets = useMemo(() => {
+    return snippets.filter(snippet => {
+      const searchLower = searchTerm.toLowerCase();
 
-    const matchesTags =
-      selectedTags.length === 0 ||
-      selectedTags.every(tag => snippet.tags.includes(tag));
+      // Check if snippet matches search term
+      const matchesSearch = searchTerm === '' ||
+        snippet.name.toLowerCase().includes(searchLower) ||
+        snippet.description.toLowerCase().includes(searchLower) ||
+        snippet.tags.some(tag => tag.toLowerCase().includes(searchLower));
 
-    const matchesCategory = selectedCategory
-      ? snippet.tags.includes(CATEGORIES.find(c => c.id === selectedCategory)?.tag || '')
-      : true;
+      // Check if snippet matches selected tags
+      const matchesTags = selectedTags.length === 0 ||
+        selectedTags.every(tag => snippet.tags.includes(tag));
 
-    return matchesSearch && matchesTags && matchesCategory;
-  });
+      // Check if snippet matches selected category
+      const categoryTag = selectedCategory
+        ? CATEGORIES.find(c => c.id === selectedCategory)?.tag
+        : null;
+      const matchesCategory = !categoryTag || snippet.tags.includes(categoryTag);
+
+      return matchesSearch && matchesTags && matchesCategory;
+    });
+  }, [snippets, searchTerm, selectedTags, selectedCategory]);
 
   const handleCopyCode = async (code: string): Promise<void> => {
     try {
@@ -161,6 +187,8 @@ export const useSnippetManager = () => {
   return {
     searchTerm,
     setSearchTerm,
+    categorySearchTerm,
+    setCategorySearchTerm,
     selectedTags,
     selectedCategory,
     setSelectedCategory,
@@ -171,6 +199,7 @@ export const useSnippetManager = () => {
     allTags,
     toggleTag,
     filteredSnippets,
+    filteredCategories,
     availableEditors,
     openDropdownId,
     setOpenDropdownId,

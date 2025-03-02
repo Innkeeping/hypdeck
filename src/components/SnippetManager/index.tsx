@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Header } from './Header';
 import { SearchBar } from './SearchBar';
 import { CategoryDropdown } from './CategoryDropdown';
@@ -13,10 +13,14 @@ import type { SnippetManagerProps } from './types';
 const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
   const snippetListRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const snippetSearchRef = useRef<HTMLInputElement>(null);
+  const categorySearchRef = useRef<HTMLInputElement>(null);
 
   const {
     searchTerm,
     setSearchTerm,
+    categorySearchTerm,
+    setCategorySearchTerm,
     selectedTags,
     selectedCategory,
     setSelectedCategory,
@@ -27,6 +31,7 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     allTags,
     toggleTag,
     filteredSnippets,
+    filteredCategories,
     availableEditors,
     openDropdownId,
     setOpenDropdownId,
@@ -42,78 +47,61 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
     isConfigureSnippet,
   } = useSnippetManager();
 
-  // Scroll to top when category changes
-  useEffect(() => {
-    if (snippetListRef.current) {
-      snippetListRef.current.scrollTop = 0;
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, direction: 'up' | 'down') => {
+    if (e.key === 'ArrowUp' && direction === 'up') {
+      e.preventDefault();
+      categorySearchRef.current?.focus();
+    } else if (e.key === 'ArrowDown' && direction === 'down') {
+      e.preventDefault();
+      snippetSearchRef.current?.focus();
     }
-  }, [selectedCategory]);
-
-  // Handle click outside and escape key
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    };
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        if (openDropdownId || isCategoryDropdownOpen || isTagDropdownOpen) {
-          setOpenDropdownId(null);
-          setIsCategoryDropdownOpen(false);
-          setIsTagDropdownOpen(false);
-        } else {
-          onClose();
-        }
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [onClose, openDropdownId, isCategoryDropdownOpen, isTagDropdownOpen]);
+  };
 
   return (
-    <div
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[9999]"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      }}
-    >
-      <div
-        ref={modalRef}
-        className="bg-gray-900 border border-cyan-500/30 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden"
-      >
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[9999]">
+      <div ref={modalRef} className="bg-gray-900 border border-cyan-500/30 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
         <Header onClose={onClose} />
 
-        <div className="p-4 border-b border-gray-700 space-y-4">
+        <div className="p-4 border-b border-gray-700">
           <div className="flex gap-4">
-            <CategoryDropdown
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              isOpen={isCategoryDropdownOpen}
-              setIsOpen={setIsCategoryDropdownOpen}
-              setSelectedTerminalId={setSelectedTerminalId}
-            />
-            <SearchBar
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-            />
+            {/* Left side - Filters */}
+            <div className="flex flex-col space-y-4 w-1/2">
+              <CategoryDropdown
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+                isOpen={isCategoryDropdownOpen}
+                setIsOpen={setIsCategoryDropdownOpen}
+                setSelectedTerminalId={setSelectedTerminalId}
+                filteredCategories={filteredCategories}
+              />
+
+              <TagsDropdown
+                selectedTags={selectedTags}
+                allTags={allTags}
+                toggleTag={toggleTag}
+                isOpen={isTagDropdownOpen}
+                setIsOpen={setIsTagDropdownOpen}
+              />
+            </div>
+
+            {/* Right side - Search bars */}
+            <div className="flex flex-col space-y-2 w-1/2">
+              <SearchBar
+                ref={categorySearchRef}
+                searchTerm={categorySearchTerm}
+                setSearchTerm={setCategorySearchTerm}
+                placeholder="Search categories..."
+                onKeyDown={(e) => handleKeyDown(e, 'down')}
+              />
+              <SearchBar
+                ref={snippetSearchRef}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                placeholder="Search snippets..."
+                onKeyDown={(e) => handleKeyDown(e, 'up')}
+              />
+            </div>
           </div>
-          <TagsDropdown
-            selectedTags={selectedTags}
-            allTags={allTags}
-            toggleTag={toggleTag}
-            isOpen={isTagDropdownOpen}
-            setIsOpen={setIsTagDropdownOpen}
-          />
         </div>
 
         <TerminalIndicator
@@ -150,12 +138,14 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
           )}
         </div>
 
-        <ActionDialog
-          showActionDialog={showActionDialog}
-          setShowActionDialog={setShowActionDialog}
-          handleAddToExisting={handleAddToExisting}
-          handleReplace={handleReplace}
-        />
+        {showActionDialog && (
+          <ActionDialog
+            showActionDialog={showActionDialog}
+            setShowActionDialog={setShowActionDialog}
+            handleAddToExisting={handleAddToExisting}
+            handleReplace={handleReplace}
+          />
+        )}
 
         {notification && (
           <Notification
@@ -164,7 +154,6 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
           />
         )}
 
-        {/* Click outside handlers for dropdowns */}
         {(openDropdownId || isCategoryDropdownOpen || isTagDropdownOpen) && (
           <div
             className="fixed inset-0 z-40"
