@@ -41,17 +41,13 @@ body {
   background-color: #1a1a2e !important;
 }
 
-.monaco-editor {
+/* Remove these overflow rules that were preventing scrolling */
+/* .monaco-editor {
   overflow: hidden !important;
 }
 
 .monaco-scrollable-element {
   overflow: hidden !important;
-}
-
-/* .monaco-scrollable-element > .scrollbar > .slider {
-  background: #0caba8 !important;
-  border-radius: 4px !important;
 } */
 
 .monaco-scrollable-element > .scrollbar > .slider:hover {
