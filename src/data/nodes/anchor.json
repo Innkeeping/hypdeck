@@ -14,7 +14,7 @@
       "id": "basic-anchor",
       "name": "Create Basic Anchor",
       "description": "Create an anchor with a unique ID",
-      "code": "const seat = app.create('Anchor', { id: 'seat' })",
+      "code": "const seat = app.create('anchor', { id: 'seat' })",
       "language": "javascript",
       "tags": ["anchor", "basic"]
     },
@@ -22,7 +22,7 @@
       "id": "anchor-with-parent",
       "name": "Add Anchor to Parent",
       "description": "Create an anchor and add it to a parent node",
-      "code": "const seat = app.create('Anchor', { id: 'seat' })\ncar.add(seat)",
+      "code": "const seat = app.create('anchor', { id: 'seat' })\ncar.add(seat)",
       "language": "javascript",
       "tags": ["anchor", "hierarchy"]
     },
@@ -30,7 +30,7 @@
       "id": "anchor-player",
       "name": "Anchor Player",
       "description": "Attach a player to an anchor",
-      "code": "const seat = app.create('Anchor', { id: 'seat' })\ncar.add(seat)\n\n// Attach player to anchor\nplayer.setEffect({ anchor: seat })",
+      "code": "const seat = app.create('anchor', { id: 'seat' })\ncar.add(seat)\n\n// Attach player to anchor\nplayer.setEffect({ anchor: seat })",
       "language": "javascript",
       "tags": ["anchor", "player", "effect"]
     },

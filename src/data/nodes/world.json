@@ -3,8 +3,8 @@
   "description": "The global world variable is always available within the app scripting runtime.",
   "properties": [
     {
-      "name": "id",
-      "type": "Number",
+      "name": "networkId",
+      "type": "String",
       "description": "A unique ID for the current server or client."
     },
     {
@@ -20,40 +20,40 @@
   ],
   "methods": [
     {
-      "name": "add",
+      "name": "add(node)",
       "description": "Adds a node into world-space, outside of the app's local hierarchy.",
       "parameters": [
         {
           "name": "node",
           "type": "Node",
-          "description": "The node to add to world-space."
+          "description": "The node to add to the world."
         }
       ]
     },
     {
-      "name": "remove",
+      "name": "remove(node)",
       "description": "Removes a node from world-space, outside of the app's local hierarchy.",
       "parameters": [
         {
           "name": "node",
           "type": "Node",
-          "description": "The node to remove from world-space."
+          "description": "The node to remove from the world."
         }
       ]
     },
     {
-      "name": "attach",
+      "name": "attach(node)",
       "description": "Adds a node into world-space, maintaining its current world transform.",
       "parameters": [
         {
           "name": "node",
           "type": "Node",
-          "description": "The node to attach to world-space."
+          "description": "The node to attach to the world."
         }
       ]
     },
     {
-      "name": "on",
+      "name": "on(event, callback)",
       "description": "Subscribes to world events. Currently only 'enter' and 'leave' are available which let you know when a player enters or leaves the world.",
       "parameters": [
         {
@@ -64,12 +64,12 @@
         {
           "name": "callback",
           "type": "Function",
-          "description": "The callback function to execute when the event occurs."
+          "description": "The callback function to execute when the event is triggered."
         }
       ]
     },
     {
-      "name": "off",
+      "name": "off(event, callback)",
       "description": "Unsubscribes from world events.",
       "parameters": [
         {
@@ -85,7 +85,7 @@
       ]
     },
     {
-      "name": "raycast",
+      "name": "raycast(origin, direction, maxDistance, layerMask)",
       "description": "Raycasts the physics scene. If maxDistance is not specified, max distance is infinite. If layerMask is not specified, it will hit anything.",
       "parameters": [
         {
@@ -101,106 +101,126 @@
         {
           "name": "maxDistance",
           "type": "Number",
-          "description": "The maximum distance of the ray. Defaults to infinite if not specified."
+          "description": "The maximum distance the ray should travel. Defaults to infinite if not specified."
         },
-          {
+        {
           "name": "layerMask",
           "type": "Number",
-          "description": "The layer mask to filter raycast hits. Defaults to hitting anything if not specified."
+          "description": "A bitmask to filter which layers the ray should hit. Defaults to hitting everything if not specified."
         }
       ]
     },
     {
-      "name": "createLayerMask",
+      "name": "createLayerMask(...groups)",
       "description": "Creates a bitmask to be used in world.raycast(). Currently the only groups available are 'environment' and 'player'.",
       "parameters": [
         {
           "name": "groups",
           "type": "String[]",
-          "description": "An array of groups to include in the layer mask ('environment' and/or 'player')."
+          "description": "The groups to include in the layer mask ('environment', 'player', etc.)."
         }
       ]
     },
     {
-      "name": "getPlayer",
-      "description": "Returns a player. If no playerId is provided it returns the local player.",
+      "name": "getPlayer(playerId)",
+      "description": "Returns a player. If no playerId is provided, it returns the local player.",
       "parameters": [
         {
           "name": "playerId",
-          "type": "Number",
+          "type": "String",
           "description": "The ID of the player to retrieve. If not provided, returns the local player."
         }
-      ],
-      "returns": {
-        "type": "Player",
-        "description": "The player object."
-      }
+      ]
     }
   ],
   "snippets": [
     {
+      "id": "world-network-id",
+      "name": "Get World Network ID",
+      "description": "Get the unique ID for the current server or client.",
+      "code": "const networkId = world.networkId;",
+      "language": "javascript",
+      "tags": ["world", "networkId"]
+    },
+    {
+      "id": "world-is-server",
+      "name": "Check if World is Server",
+      "description": "Check if the script is currently executing on the server.",
+      "code": "const isServer = world.isServer;",
+      "language": "javascript",
+      "tags": ["world", "isServer"]
+    },
+    {
+      "id": "world-is-client",
+      "name": "Check if World is Client",
+      "description": "Check if the script is currently executing on the client.",
+      "code": "const isClient = world.isClient;",
+      "language": "javascript",
+      "tags": ["world", "isClient"]
+    },
+    {
       "id": "world-add-node",
       "name": "Add Node to World",
-      "description": "Adds a node to world-space.",
-      "code": "const node = app.create('UIView')\nworld.add(node)",
+      "description": "Adds a node into world-space, outside of the app's local hierarchy.",
+      "code": "world.add(node);",
       "language": "javascript",
       "tags": ["world", "add", "node"]
     },
     {
       "id": "world-remove-node",
       "name": "Remove Node from World",
-      "description": "Removes a node from world-space.",
-      "code": "const node = app.create('UIView')\nworld.add(node)\nworld.remove(node)",
+      "description": "Removes a node from world-space, outside of the app's local hierarchy.",
+      "code": "world.remove(node);",
       "language": "javascript",
       "tags": ["world", "remove", "node"]
     },
     {
       "id": "world-attach-node",
       "name": "Attach Node to World",
-      "description": "Attaches a node to world-space while maintaining its world transform.",
-      "code": "const node = app.create('UIView')\nworld.attach(node)",
+      "description": "Adds a node into world-space, maintaining its current world transform.",
+      "code": "world.attach(node);",
       "language": "javascript",
       "tags": ["world", "attach", "node"]
     },
     {
       "id": "world-on-event",
-      "name": "Subscribe to World Events",
-      "description": "Subscribes to 'enter' and 'leave' world events.",
-      "code": "world.on('enter', (player) => {\n  console.log('Player entered:', player)\n})\n\nworld.on('leave', (player) => {\n  console.log('Player left:', player)\n})",
+      "name": "Subscribe to World Event",
+      "description": "Subscribes to world events. Currently 'enter' and 'leave' are available.",
+      "code": "world.on('enter', (player) => {\n  // Player entered the world\n});\n\nworld.on('leave', (player) => {\n  // Player left the world\n});",
       "language": "javascript",
       "tags": ["world", "on", "event"]
     },
     {
       "id": "world-off-event",
-      "name": "Unsubscribe from World Events",
-      "description": "Unsubscribes from 'enter' and 'leave' world events.",
-      "code": "const onEnter = (player) => {\n  console.log('Player entered:', player)\n}\n\nworld.on('enter', onEnter)\nworld.off('enter', onEnter)",
+      "name": "Unsubscribe from World Event",
+      "description": "Unsubscribes from world events.",
+      "code": "world.off('enter', onEnter);\n\n// Cleanup\nworld.off('enter', onEnter);",
       "language": "javascript",
       "tags": ["world", "off", "event"]
     },
     {
       "id": "world-raycast",
       "name": "Raycast in World",
-      "description": "Raycasts the physics scene to detect objects.",
-      "code": "const origin = new Vector3(0, 0, 0)\nconst direction = new Vector3(0, 1, 0)\nconst maxDistance = 100\nconst layerMask = world.createLayerMask(['environment', 'player'])\n\nworld.raycast(origin, direction, maxDistance, layerMask)",
+      "description": "Raycasts the physics scene. If maxDistance is not specified, max distance is infinite. If layerMask is not specified, it will hit anything.",
+      "code": "const hit = world.raycast(origin, direction, maxDistance, layerMask);",
       "language": "javascript",
       "tags": ["world", "raycast"]
     },
     {
       "id": "world-create-layer-mask",
       "name": "Create Layer Mask",
-      "description": "Creates a bitmask for raycasting.",
-      "code": "const layerMask = world.createLayerMask(['environment', 'player'])\nconsole.log('Layer Mask:', layerMask)",
+      "description": "Creates a bitmask to be used in world.raycast(). Currently the only groups available are 'environment' and 'player'.",
+      "code": "const layer = world.createLayerMask('environment', 'player');",
       "language": "javascript",
-      "tags": ["world", "layer-mask"]
+      "tags": ["world", "createLayerMask"]
     },
     {
       "id": "world-get-player",
       "name": "Get Player",
-      "description": "Retrieves a player by ID or the local player.",
-      "code": "const localPlayer = world.getPlayer()\nconsole.log('Local Player:', localPlayer)\n\nconst playerById = world.getPlayer(123)\nconsole.log('Player by ID:', playerById)",
+      "description": "Returns a player. If no playerId is provided, it returns the local player.",
+      "code": "const player = world.getPlayer(playerId); // For specific player\nconst localPlayer = world.getPlayer(); // For local player",
       "language": "javascript",
-      "tags": ["world", "get-player"]
+      "tags": ["world", "getPlayer"]
     }
   ]
 }

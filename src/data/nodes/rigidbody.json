@@ -36,7 +36,7 @@
       "id": "create-rigidbody",
       "name": "Create RigidBody",
       "description": "Create a rigidbody with default settings",
-      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic'\n})\napp.add(rigidbody)",
+      "code": "const rigidbody = app.create('rigidBody', {\n  type: 'dynamic'\n})\napp.add(rigidbody)",
       "language": "javascript",
       "tags": ["rigidbody", "create"]
     },
@@ -44,7 +44,7 @@
       "id": "create-static-rigidbody",
       "name": "Create Static RigidBody",
       "description": "Create a static rigidbody",
-      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'static'\n})\napp.add(rigidbody)",
+      "code": "const rigidbody = app.create('rigidBody', {\n  type: 'static'\n})\napp.add(rigidbody)",
       "language": "javascript",
       "tags": ["rigidbody", "static"]
     },
@@ -52,7 +52,7 @@
       "id": "create-kinematic-rigidbody",
       "name": "Create Kinematic RigidBody",
       "description": "Create a kinematic rigidbody",
-      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'kinematic'\n})\napp.add(rigidbody)",
+      "code": "const rigidbody = app.create('rigidBody', {\n  type: 'kinematic'\n})\napp.add(rigidbody)",
       "language": "javascript",
       "tags": ["rigidbody", "kinematic"]
     },
@@ -60,7 +60,7 @@
       "id": "on-contact-start",
       "name": "Handle Contact Start",
       "description": "Handle contact start event for a rigidbody",
-      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic',\n  onContactStart: (contact) => {\n    console.log('Contact started:', contact)\n  }\n})\napp.add(rigidbody)",
+      "code": "const rigidbody = app.create('rigidBody', {\n  type: 'dynamic',\n  onContactStart: (contact) => {\n    console.log('Contact started:', contact)\n  }\n})\napp.add(rigidbody)",
       "language": "javascript",
       "tags": ["rigidbody", "contact", "start"]
     },
@@ -68,7 +68,7 @@
       "id": "on-contact-end",
       "name": "Handle Contact End",
       "description": "Handle contact end event for a rigidbody",
-      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic',\n  onContactEnd: (contact) => {\n    console.log('Contact ended:', contact)\n  }\n})\napp.add(rigidbody)",
+      "code": "const rigidbody = app.create('rigidBody', {\n  type: 'dynamic',\n  onContactEnd: (contact) => {\n    console.log('Contact ended:', contact)\n  }\n})\napp.add(rigidbody)",
       "language": "javascript",
       "tags": ["rigidbody", "contact", "end"]
     },
@@ -76,7 +76,7 @@
       "id": "on-trigger-enter",
       "name": "Handle Trigger Enter",
       "description": "Handle trigger enter event for a rigidbody",
-      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic',\n  onTriggerEnter: (trigger) => {\n    console.log('Trigger entered:', trigger)\n  }\n})\napp.add(rigidbody)",
+      "code": "const rigidbody = app.create('rigidBody', {\n  type: 'dynamic',\n  onTriggerEnter: (trigger) => {\n    console.log('Trigger entered:', trigger)\n  }\n})\napp.add(rigidbody)",
       "language": "javascript",
       "tags": ["rigidbody", "trigger", "enter"]
     },
@@ -84,7 +84,7 @@
       "id": "on-trigger-leave",
       "name": "Handle Trigger Leave",
       "description": "Handle trigger leave event for a rigidbody",
-      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic',\n  onTriggerLeave: (trigger) => {\n    console.log('Trigger left:', trigger)\n  }\n})\napp.add(rigidbody)",
+      "code": "const rigidbody = app.create('rigidBody', {\n  type: 'dynamic',\n  onTriggerLeave: (trigger) => {\n    console.log('Trigger left:', trigger)\n  }\n})\napp.add(rigidbody)",
       "language": "javascript",
       "tags": ["rigidbody", "trigger", "leave"]
     }

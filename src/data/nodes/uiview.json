@@ -120,7 +120,7 @@
       "id": "create-uiview",
       "name": "Create UIView",
       "description": "Create a basic UIView with default settings",
-      "code": "const view = app.create('UIView', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderRadius: 10\n})\napp.add(view)",
+      "code": "const view = app.create('uiview', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderRadius: 10\n})\napp.add(view)",
       "language": "javascript",
       "tags": ["uiview", "create"]
     },
@@ -128,7 +128,7 @@
       "id": "uiview-border",
       "name": "UIView with Border",
       "description": "Create a UIView with a border",
-      "code": "const view = app.create('UIView', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderWidth: 2,\n  borderColor: '#000000',\n  borderRadius: 10\n})\napp.add(view)",
+      "code": "const view = app.create('uiview', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderWidth: 2,\n  borderColor: '#000000',\n  borderRadius: 10\n})\napp.add(view)",
       "language": "javascript",
       "tags": ["uiview", "border"]
     },
@@ -136,7 +136,7 @@
       "id": "uiview-margin-padding",
       "name": "UIView with Margin and Padding",
       "description": "Create a UIView with margin and padding",
-      "code": "const view = app.create('UIView', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  margin: 10,\n  padding: 5\n})\napp.add(view)",
+      "code": "const view = app.create('uiview', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  margin: 10,\n  padding: 5\n})\napp.add(view)",
       "language": "javascript",
       "tags": ["uiview", "margin", "padding"]
     },
@@ -144,7 +144,7 @@
       "id": "uiview-flex-direction",
       "name": "UIView Flex Direction",
       "description": "Create a UIView with different flex direction",
-      "code": "const view = app.create('UIView', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexDirection: 'row'\n})\napp.add(view)",
+      "code": "const view = app.create('uiview', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexDirection: 'row'\n})\napp.add(view)",
       "language": "javascript",
       "tags": ["uiview", "flex-direction"]
     },
@@ -152,7 +152,7 @@
       "id": "uiview-justify-align",
       "name": "UIView Justify Content and Align Items",
       "description": "Create a UIView with justify content and align items",
-      "code": "const view = app.create('UIView', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  justifyContent: 'center',\n  alignItems: 'center'\n})\napp.add(view)",
+      "code": "const view = app.create('uiview', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  justifyContent: 'center',\n  alignItems: 'center'\n})\napp.add(view)",
       "language": "javascript",
       "tags": ["uiview", "justify-content", "align-items"]
     },
@@ -160,7 +160,7 @@
       "id": "uiview-flex-wrap",
       "name": "UIView Flex Wrap",
       "description": "Create a UIView with flex wrap",
-      "code": "const view = app.create('UIView', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexWrap: 'wrap'\n})\napp.add(view)",
+      "code": "const view = app.create('uiview', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexWrap: 'wrap'\n})\napp.add(view)",
       "language": "javascript",
       "tags": ["uiview", "flex-wrap"]
     }

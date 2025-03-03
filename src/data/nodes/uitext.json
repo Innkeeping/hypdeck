@@ -81,7 +81,7 @@
       "id": "create-uitext",
       "name": "Create UIText",
       "description": "Create a basic UIText with default settings",
-      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  textAlign: 'left'\n})\napp.add(text)",
+      "code": "const text = app.create('uitext', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  textAlign: 'left'\n})\napp.add(text)",
       "language": "javascript",
       "tags": ["uitext", "create"]
     },
@@ -89,7 +89,7 @@
       "id": "uitext-background",
       "name": "UIText with Background",
       "description": "Create a UIText with a background color",
-      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#FFFFFF',\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderRadius: 10\n})\napp.add(text)",
+      "code": "const text = app.create('uitext', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#FFFFFF',\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderRadius: 10\n})\napp.add(text)",
       "language": "javascript",
       "tags": ["uitext", "background"]
     },
@@ -97,7 +97,7 @@
       "id": "uitext-margin-padding",
       "name": "UIText with Margin and Padding",
       "description": "Create a UIText with margin and padding",
-      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  margin: 10,\n  padding: 5\n})\napp.add(text)",
+      "code": "const text = app.create('uitext', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  margin: 10,\n  padding: 5\n})\napp.add(text)",
       "language": "javascript",
       "tags": ["uitext", "margin", "padding"]
     },
@@ -105,7 +105,7 @@
       "id": "uitext-align",
       "name": "UIText Text Alignment",
       "description": "Create a UIText with different text alignment",
-      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  textAlign: 'center'\n})\napp.add(text)",
+      "code": "const text = app.create('uitext', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  textAlign: 'center'\n})\napp.add(text)",
       "language": "javascript",
       "tags": ["uitext", "text-align"]
     },
@@ -113,7 +113,7 @@
       "id": "uitext-font",
       "name": "UIText Font Customization",
       "description": "Create a UIText with custom font settings",
-      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 20,\n  color: '#FF0000',\n  fontFamily: 'Arial',\n  fontWeight: 'bold'\n})\napp.add(text)",
+      "code": "const text = app.create('uitext', {\n  value: 'Hello world',\n  fontSize: 20,\n  color: '#FF0000',\n  fontFamily: 'Arial',\n  fontWeight: 'bold'\n})\napp.add(text)",
       "language": "javascript",
       "tags": ["uitext", "font", "customization"]
     },
@@ -121,7 +121,7 @@
       "id": "uitext-line-height",
       "name": "UIText Line Height",
       "description": "Create a UIText with custom line height",
-      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  lineHeight: 1.5\n})\napp.add(text)",
+      "code": "const text = app.create('uitext', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  lineHeight: 1.5\n})\napp.add(text)",
       "language": "javascript",
       "tags": ["uitext", "line-height"]
     }

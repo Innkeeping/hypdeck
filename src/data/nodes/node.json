@@ -104,7 +104,7 @@
       "id": "node-create",
       "name": "Create Node",
       "description": "Create a Node with default settings.",
-      "code": "const node = app.create('Node', {\n  id: 'node-id',\n  position: { x: 0, y: 0, z: 0 },\n  rotation: { x: 0, y: 0, z: 0 },\n  scale: { x: 1, y: 1, z: 1 }\n})\napp.add(node)",
+      "code": "const node = app.create('node', {\n  id: 'node-id',\n  position: { x: 0, y: 0, z: 0 },\n  rotation: { x: 0, y: 0, z: 0 },\n  scale: { x: 1, y: 1, z: 1 }\n})\napp.add(node)",
       "language": "javascript",
       "tags": ["node", "create"]
     },
@@ -112,7 +112,7 @@
       "id": "node-add-child",
       "name": "Add Child Node",
       "description": "Add a child node to the current node.",
-      "code": "const parentNode = app.create('Node')\nconst childNode = app.create('Node')\nparentNode.add(childNode)\napp.add(parentNode)",
+      "code": "const parentNode = app.create('node')\nconst childNode = app.create('Node')\nparentNode.add(childNode)\napp.add(parentNode)",
       "language": "javascript",
       "tags": ["node", "add", "child"]
     },
@@ -120,7 +120,7 @@
       "id": "node-remove-child",
       "name": "Remove Child Node",
       "description": "Remove a child node from the current node.",
-      "code": "const parentNode = app.create('Node')\nconst childNode = app.create('Node')\nparentNode.add(childNode)\nparentNode.remove(childNode)\napp.add(parentNode)",
+      "code": "const parentNode = app.create('node')\nconst childNode = app.create('Node')\nparentNode.add(childNode)\nparentNode.remove(childNode)\napp.add(parentNode)",
       "language": "javascript",
       "tags": ["node", "remove", "child"]
     },
@@ -128,7 +128,7 @@
       "id": "node-traverse",
       "name": "Traverse Nodes",
       "description": "Traverse the node and its descendants.",
-      "code": "const parentNode = app.create('Node')\nconst childNode1 = app.create('Node')\nconst childNode2 = app.create('Node')\nparentNode.add(childNode1)\nparentNode.add(childNode2)\nparentNode.traverse(node => {\n  console.log(node.id)\n})\napp.add(parentNode)",
+      "code": "const parentNode = app.create('node')\nconst childNode1 = app.create('Node')\nconst childNode2 = app.create('Node')\nparentNode.add(childNode1)\nparentNode.add(childNode2)\nparentNode.traverse(node => {\n  console.log(node.id)\n})\napp.add(parentNode)",
       "language": "javascript",
       "tags": ["node", "traverse"]
     }

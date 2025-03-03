@@ -321,7 +321,7 @@
       "id": "basic-audio",
       "name": "Create Basic Audio",
       "description": "Create a basic audio clip with default settings",
-      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume,\n  loop: props.loop,\n  group: props.group,\n  spatial: props.spatial,\n  distanceModel: props.distanceModel,\n  refDistance: props.refDistance,\n  maxDistance: props.maxDistance,\n  rolloffFactor: props.rolloffFactor,\n  coneInnerAngle: props.coneInnerAngle,\n  coneOuterAngle: props.coneOuterAngle,\n  coneOuterGain: props.coneOuterGain\n})\napp.add(audio)",
+      "code": "const audio = app.create('audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume,\n  loop: props.loop,\n  group: props.group,\n  spatial: props.spatial,\n  distanceModel: props.distanceModel,\n  refDistance: props.refDistance,\n  maxDistance: props.maxDistance,\n  rolloffFactor: props.rolloffFactor,\n  coneInnerAngle: props.coneInnerAngle,\n  coneOuterAngle: props.coneOuterAngle,\n  coneOuterGain: props.coneOuterGain\n})\napp.add(audio)",
       "language": "javascript",
       "tags": ["audio", "basic"]
     },
@@ -329,7 +329,7 @@
       "id": "spatial-audio",
       "name": "Create Spatial Audio",
       "description": "Create a spatial audio clip",
-      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: props.group,\n  spatial: props.spatial,\n  distanceModel: props.distanceModel,\n  refDistance: props.refDistance,\n  maxDistance: props.maxDistance,\n  rolloffFactor: props.rolloffFactor\n})\napp.add(audio)",
+      "code": "const audio = app.create('audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: props.group,\n  spatial: props.spatial,\n  distanceModel: props.distanceModel,\n  refDistance: props.refDistance,\n  maxDistance: props.maxDistance,\n  rolloffFactor: props.rolloffFactor\n})\napp.add(audio)",
       "language": "javascript",
       "tags": ["audio", "spatial"]
     },
@@ -337,7 +337,7 @@
       "id": "sound-effect",
       "name": "Create Sound Effect",
       "description": "Create a sound effect",
-      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: 'sfx',\n  loop: false,\n  volume: props.volume\n})\napp.add(audio)\n\naudio.play()",
+      "code": "const audio = app.create('audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: 'sfx',\n  loop: false,\n  volume: props.volume\n})\napp.add(audio)\n\naudio.play()",
       "language": "javascript",
       "tags": ["audio", "sfx"]
     },
@@ -345,7 +345,7 @@
       "id": "looping-music",
       "name": "Create Looping Music",
       "description": "Create a looping music track",
-      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: 'music',\n  loop: true\n})\napp.add(audio)\n\naudio.play()",
+      "code": "const audio = app.create('audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: 'music',\n  loop: true\n})\napp.add(audio)\n\naudio.play()",
       "language": "javascript",
       "tags": ["audio", "loop"]
     },
@@ -353,7 +353,7 @@
       "id": "play-pause-stop",
       "name": "Play, Pause, and Stop Audio",
       "description": "Demonstrate play, pause, and stop methods",
-      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume,\n  loop: false\n})\napp.add(audio)\n\naudio.play()\nsetTimeout(() => {\n  audio.pause()\n  console.log('Audio paused')\n}, 5000)\nsetTimeout(() => {\n  audio.stop()\n  console.log('Audio stopped')\n}, 10000)",
+      "code": "const audio = app.create('audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume,\n  loop: false\n})\napp.add(audio)\n\naudio.play()\nsetTimeout(() => {\n  audio.pause()\n  console.log('Audio paused')\n}, 5000)\nsetTimeout(() => {\n  audio.stop()\n  console.log('Audio stopped')\n}, 10000)",
       "language": "javascript",
       "tags": ["audio", "control"]
     },
@@ -361,7 +361,7 @@
       "id": "add-child-to-audio",
       "name": "Add Child to Audio",
       "description": "Add a child node to the audio node",
-      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)",
+      "code": "const audio = app.create('audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)",
       "language": "javascript",
       "tags": ["audio", "add", "child"]
     },
@@ -369,7 +369,7 @@
       "id": "remove-child-from-audio",
       "name": "Remove Child from Audio",
       "description": "Remove a child node from the audio node",
-      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)\n\n// Later, to remove the child node\naudio.remove(childNode)",
+      "code": "const audio = app.create('audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)\n\n// Later, to remove the child node\naudio.remove(childNode)",
       "language": "javascript",
       "tags": ["audio", "remove", "child"]
     },
@@ -377,7 +377,7 @@
       "id": "traverse-audio",
       "name": "Traverse Audio Node",
       "description": "Traverse the audio node and its children",
-      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)\n\naudio.traverse((node) => {\n  console.log(node.id)\n})",
+      "code": "const audio = app.create('audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)\n\naudio.traverse((node) => {\n  console.log(node.id)\n})",
       "language": "javascript",
       "tags": ["audio", "traverse"]
     }

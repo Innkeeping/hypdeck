@@ -56,7 +56,7 @@
       "id": "box-collider",
       "name": "Create Box Collider",
       "description": "Create a box collider with default size",
-      "code": "const collider = app.create('Collider', { type: 'box' })\nparentRigidbody.add(collider)",
+      "code": "const collider = app.create('collider', { type: 'box' })\nparentRigidbody.add(collider)",
       "language": "javascript",
       "tags": ["collider", "box"]
     },
@@ -64,7 +64,7 @@
       "id": "box-collider-with-size",
       "name": "Create Box Collider with Specific Size",
       "description": "Create a box collider with specific dimensions",
-      "code": "const collider = app.create('Collider', { type: 'box' })\ncollider.setSize(2, 2, 2)\nparentRigidbody.add(collider)",
+      "code": "const collider = app.create('collider', { type: 'box' })\ncollider.setSize(2, 2, 2)\nparentRigidbody.add(collider)",
       "language": "javascript",
       "tags": ["collider", "box", "size"]
     },
@@ -72,7 +72,7 @@
       "id": "sphere-collider",
       "name": "Create Sphere Collider",
       "description": "Create a sphere collider with a specific radius",
-      "code": "const collider = app.create('Collider', { type: 'sphere', radius: 1 })\nparentRigidbody.add(collider)",
+      "code": "const collider = app.create('collider', { type: 'sphere', radius: 1 })\nparentRigidbody.add(collider)",
       "language": "javascript",
       "tags": ["collider", "sphere"]
     },
@@ -80,7 +80,7 @@
       "id": "geometry-collider",
       "name": "Create Geometry Collider",
       "description": "Create a geometry collider with convex property",
-      "code": "const collider = app.create('Collider', { type: 'geometry', convex: true })\nparentRigidbody.add(collider)",
+      "code": "const collider = app.create('collider', { type: 'geometry', convex: true })\nparentRigidbody.add(collider)",
       "language": "javascript",
       "tags": ["collider", "geometry"]
     },
@@ -88,7 +88,7 @@
       "id": "trigger-collider",
       "name": "Create Trigger Collider",
       "description": "Create a trigger collider",
-      "code": "const collider = app.create('Collider', { type: 'box', trigger: true })\nparentRigidbody.add(collider)",
+      "code": "const collider = app.create('collider', { type: 'box', trigger: true })\nparentRigidbody.add(collider)",
       "language": "javascript",
       "tags": ["collider", "trigger"]
     }

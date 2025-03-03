@@ -137,7 +137,7 @@
       "id": "ui-padding",
       "name": "UI with Padding",
       "description": "Create a UI with padding",
-      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  padding: 10\n})\napp.add(ui)",
+      "code": "const ui = app.create('ui', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  padding: 10\n})\napp.add(ui)",
       "language": "javascript",
       "tags": ["ui", "padding"]
     },
@@ -145,7 +145,7 @@
       "id": "ui-billboard",
       "name": "Billboard UI",
       "description": "Create a UI that faces the camera",
-      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  billboard: 'full'\n})\napp.add(ui)",
+      "code": "const ui = app.create('ui', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  billboard: 'full'\n})\napp.add(ui)",
       "language": "javascript",
       "tags": ["ui", "billboard"]
     },
@@ -153,7 +153,7 @@
       "id": "ui-flex-direction",
       "name": "UI Flex Direction",
       "description": "Create a UI with different flex direction",
-      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexDirection: 'column'\n})\napp.add(ui)",
+      "code": "const ui = app.create('ui', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexDirection: 'column'\n})\napp.add(ui)",
       "language": "javascript",
       "tags": ["ui", "flex-direction"]
     },
@@ -161,7 +161,7 @@
       "id": "ui-align-items",
       "name": "UI Align Items",
       "description": "Create a UI with different align items",
-      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  alignItems: 'center'\n})\napp.add(ui)",
+      "code": "const ui = app.create('ui', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  alignItems: 'center'\n})\napp.add(ui)",
       "language": "javascript",
       "tags": ["ui", "align-items"]
     }

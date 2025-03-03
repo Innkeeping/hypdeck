@@ -21,7 +21,7 @@
       "id": "mesh-create",
       "name": "Create Mesh",
       "description": "Create a mesh with default shadow settings.",
-      "code": "const mesh = app.create('Mesh', {\n  castShadow: true,\n  receiveShadow: true\n})\napp.add(mesh)",
+      "code": "const mesh = app.create('mesh', {\n  castShadow: true,\n  receiveShadow: true\n})\napp.add(mesh)",
       "language": "javascript",
       "tags": ["mesh", "create"]
     },
@@ -29,7 +29,7 @@
       "id": "mesh-cast-shadow",
       "name": "Mesh Cast Shadow",
       "description": "Create a mesh that casts shadows.",
-      "code": "const mesh = app.create('Mesh', {\n  castShadow: true,\n  receiveShadow: false\n})\napp.add(mesh)",
+      "code": "const mesh = app.create('mesh', {\n  castShadow: true,\n  receiveShadow: false\n})\napp.add(mesh)",
       "language": "javascript",
       "tags": ["mesh", "cast-shadow"]
     },
@@ -37,7 +37,7 @@
       "id": "mesh-receive-shadow",
       "name": "Mesh Receive Shadow",
       "description": "Create a mesh that receives shadows.",
-      "code": "const mesh = app.create('Mesh', {\n  castShadow: false,\n  receiveShadow: true\n})\napp.add(mesh)",
+      "code": "const mesh = app.create('mesh', {\n  castShadow: false,\n  receiveShadow: true\n})\napp.add(mesh)",
       "language": "javascript",
       "tags": ["mesh", "receive-shadow"]
     }

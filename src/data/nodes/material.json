@@ -27,7 +27,7 @@
       "id": "material-create",
       "name": "Create Material",
       "description": "Create a material with default settings.",
-      "code": "const material = app.create('Material', {\n  textureX: 0,\n  textureY: 0,\n  emissiveIntensity: 0\n})\napp.add(material)",
+      "code": "const material = app.create('material', {\n  textureX: 0,\n  textureY: 0,\n  emissiveIntensity: 0\n})\napp.add(material)",
       "language": "javascript",
       "tags": ["material", "create"]
     },
@@ -35,7 +35,7 @@
       "id": "material-texture-scroll",
       "name": "Material Texture Scroll",
       "description": "Create a material with texture offsets for scrolling.",
-      "code": "const material = app.create('Material', {\n  textureX: 0.5,\n  textureY: 0.5,\n  emissiveIntensity: 0\n})\napp.add(material)",
+      "code": "const material = app.create('material', {\n  textureX: 0.5,\n  textureY: 0.5,\n  emissiveIntensity: 0\n})\napp.add(material)",
       "language": "javascript",
       "tags": ["material", "texture-scroll"]
     },
@@ -43,7 +43,7 @@
       "id": "material-emissive",
       "name": "Material Emissive Intensity",
       "description": "Create a material with emissive intensity.",
-      "code": "const material = app.create('Material', {\n  textureX: 0,\n  textureY: 0,\n  emissiveIntensity: 1.5\n})\napp.add(material)",
+      "code": "const material = app.create('material', {\n  textureX: 0,\n  textureY: 0,\n  emissiveIntensity: 1.5\n})\napp.add(material)",
       "language": "javascript",
       "tags": ["material", "emissive"]
     }
