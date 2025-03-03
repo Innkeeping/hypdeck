@@ -9,11 +9,21 @@ interface FilteredSnippetsProps {
   selectedCategory: string | null;
 }
 
-export const useFilteredSnippets = ({ searchTerm, selectedTags, selectedCategory }: FilteredSnippetsProps) => {
+export const useFilteredSnippets = ({
+  searchTerm,
+  selectedTags,
+  selectedCategory
+}: FilteredSnippetsProps) => {
   const { snippets } = useSnippetStore();
 
   return useMemo(() => {
+    if (!snippets) return [];
+
     return snippets.filter(snippet => {
+      if (!snippet || !snippet.name || !snippet.description || !snippet.tags) {
+        return false;
+      }
+
       const categoryTag = selectedCategory
         ? CATEGORIES.find(c => c.id === selectedCategory)?.tag
         : null;

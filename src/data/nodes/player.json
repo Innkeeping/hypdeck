@@ -156,8 +156,7 @@
       "tags": ["player", "effect", "remove"]
     },
     {
-      "id": "get-bone-transform",
-      "name": "Get Bone Transform",
+      "id": "get-player-bone-transform",
       "description": "Get the bone transform matrix in world space",
       "code": "const player = World.getPlayer()\nconst boneName = 'head'\nconst boneTransform = player.getBoneTransform(boneName)\nconsole.log(boneTransform)",
       "language": "javascript",
