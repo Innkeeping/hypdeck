@@ -86,11 +86,34 @@ export const useEditorStore = create<EditorStore>((set) => ({
     )
   })),
 
-  updateEditorContent: (id: string, content: string) => set((state) => ({
-    editors: state.editors.map((editor) =>
-      editor.id === id ? { ...editor, content } : editor
-    )
-  })),
+  updateEditorContent: (id: string, content: string) => set((state) => {
+    const editor = state.editors.find(e => e.id === id);
+    if (!editor) return state;
+
+    // If content includes both configure and other code, ensure configure is first
+    const contentLines = content.trim().split('\n');
+    const configureIndex = contentLines.findIndex(line => line.includes('app.configure'));
+
+    let finalContent = content;
+    if (configureIndex > 0) {
+      // Configure exists but isn't first, reorder it
+      const beforeConfig = contentLines.slice(0, configureIndex).join('\n');
+      const configBlock = contentLines.slice(configureIndex).join('\n');
+      finalContent = `${configBlock}\n\n${beforeConfig}`;
+    }
+
+    return {
+      editors: state.editors.map((ed) =>
+        ed.id === id
+          ? {
+              ...ed,
+              content: finalContent.trim(),
+              shouldFocus: true
+            }
+          : ed
+      )
+    };
+  }),
 
   updateEditorName: (id: string, name: string) => set((state) => ({
     editors: state.editors.map((editor) =>
