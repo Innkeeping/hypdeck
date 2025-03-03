@@ -1,0 +1,385 @@
+{
+  "title": "Audio",
+  "description": "Represents a single audio clip that can be played in the world.",
+  "configure": [
+    {
+      "type": "file",
+      "key": "audioFile",
+      "label": "Audio File",
+      "kind": "audio"
+    },
+    {
+      "type": "text",
+      "key": "audioSrc",
+      "label": "Audio Source URL",
+      "placeholder": "Enter the URL of the audio file",
+      "initial": ""
+    },
+    {
+      "type": "number",
+      "key": "volume",
+      "label": "Volume",
+      "dp": 1,
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "initial": 1
+    },
+    {
+      "type": "switch",
+      "key": "loop",
+      "label": "Loop",
+      "options": [
+        {
+          "label": "Yes",
+          "value": true
+        },
+        {
+          "label": "No",
+          "value": false
+        }
+      ],
+      "initial": false
+    },
+    {
+      "type": "dropdown",
+      "key": "group",
+      "label": "Group",
+      "options": [
+        {
+          "label": "Music",
+          "value": "music"
+        },
+        {
+          "label": "Sound Effects",
+          "value": "sfx"
+        }
+      ],
+      "initial": "music"
+    },
+    {
+      "type": "switch",
+      "key": "spatial",
+      "label": "Spatial",
+      "options": [
+        {
+          "label": "Yes",
+          "value": true
+        },
+        {
+          "label": "No",
+          "value": false
+        }
+      ],
+      "initial": true
+    },
+    {
+      "type": "dropdown",
+      "key": "distanceModel",
+      "label": "Distance Model",
+      "options": [
+        {
+          "label": "Linear",
+          "value": "linear"
+        },
+        {
+          "label": "Inverse",
+          "value": "inverse"
+        },
+        {
+          "label": "Exponential",
+          "value": "exponential"
+        }
+      ],
+      "initial": "inverse"
+    },
+    {
+      "type": "number",
+      "key": "refDistance",
+      "label": "Reference Distance",
+      "dp": 2,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "initial": 1
+    },
+    {
+      "type": "number",
+      "key": "maxDistance",
+      "label": "Max Distance",
+      "dp": 2,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "initial": 40
+    },
+    {
+      "type": "number",
+      "key": "rolloffFactor",
+      "label": "Rolloff Factor",
+      "dp": 2,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "initial": 3
+    },
+    {
+      "type": "number",
+      "key": "coneInnerAngle",
+      "label": "Cone Inner Angle",
+      "dp": 2,
+      "min": 0,
+      "max": 360,
+      "step": 1,
+      "initial": 360
+    },
+    {
+      "type": "number",
+      "key": "coneOuterAngle",
+      "label": "Cone Outer Angle",
+      "dp": 2,
+      "min": 0,
+      "max": 360,
+      "step": 1,
+      "initial": 360
+    },
+    {
+      "type": "number",
+      "key": "coneOuterGain",
+      "label": "Cone Outer Gain",
+      "dp": 2,
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "initial": 0
+    }
+  ],
+  "properties": [
+    {
+      "name": "src",
+      "type": "String",
+      "description": "An absolute URL to an audio file, or an asset URL from an audio file embedded in the app. Currently only mp3 files are supported."
+    },
+    {
+      "name": "volume",
+      "type": "Number",
+      "description": "The audio volume. Defaults to 1.",
+      "default": 1
+    },
+    {
+      "name": "loop",
+      "type": "Boolean",
+      "description": "Whether the audio should loop. Defaults to false.",
+      "default": false
+    },
+    {
+      "name": "group",
+      "type": "Enum",
+      "description": "The type of audio being played. Choose music for ambient sounds or live event music etc. Choose sfx for short sound effects that happen throughout the world. Users are able to adjust the global audio volume for these groups independently. Defaults to music.",
+      "values": ["music", "sfx"],
+      "default": "music"
+    },
+    {
+      "name": "spatial",
+      "type": "Boolean",
+      "description": "Whether music should be played spatially and heard by people nearby. Defaults to true.",
+      "default": true
+    },
+    {
+      "name": "distanceModel",
+      "type": "Enum",
+      "description": "When spatial is enabled, the distance model to use. Defaults to inverse.",
+      "values": ["linear", "inverse", "exponential"],
+      "default": "inverse"
+    },
+    {
+      "name": "refDistance",
+      "type": "Number",
+      "description": "When spatial is enabled, the reference distance to use. Defaults to 1.",
+      "default": 1
+    },
+    {
+      "name": "maxDistance",
+      "type": "Number",
+      "description": "When spatial is enabled, the max distance to use. Defaults to 40.",
+      "default": 40
+    },
+    {
+      "name": "rolloffFactor",
+      "type": "Number",
+      "description": "When spatial is enabled, the rolloff factor to use. Defaults to 3.",
+      "default": 3
+    },
+    {
+      "name": "coneInnerAngle",
+      "type": "Number",
+      "description": "When spatial is enabled, the cone inner angle to use. Defaults to 360.",
+      "default": 360
+    },
+    {
+      "name": "coneOuterAngle",
+      "type": "Number",
+      "description": "When spatial is enabled, the cone outer angle to use. Defaults to 360.",
+      "default": 360
+    },
+    {
+      "name": "coneOuterGain",
+      "type": "Number",
+      "description": "When spatial is enabled, the cone outer gain to use. Defaults to 0.",
+      "default": 0
+    },
+    {
+      "name": "currentTime",
+      "type": "Number",
+      "description": "Gets and sets the current playback time, in seconds."
+    },
+    {
+      "name": "id",
+      "type": "String",
+      "description": "The ID of the node. This is auto generated when creating nodes via script. For GLTF models converted to nodes, it uses the same object name you would see in blender. NOTE: Blender GLTF exporter does rename objects in some cases, eg by removing spaces. Best practice is to simply name everything in UpperCamelCase with no other characters."
+    },
+    {
+      "name": "position",
+      "type": "Vector3",
+      "description": "The local position of the node."
+    },
+    {
+      "name": "quaternion",
+      "type": "Quaternion",
+      "description": "The local quaternion rotation of the node. Updating this automatically updates the rotation property."
+    },
+    {
+      "name": "rotation",
+      "type": "Euler",
+      "description": "The local euler rotation of the node. Updating this automatically updates the quaternion property."
+    },
+    {
+      "name": "scale",
+      "type": "Vector3",
+      "description": "The local scale of the node."
+    },
+    {
+      "name": "matrixWorld",
+      "type": "Matrix4",
+      "description": "The world matrix of this node in global space."
+    },
+    {
+      "name": "parent",
+      "type": "Node",
+      "description": "The parent node, if any."
+    }
+  ],
+  "methods": [
+    {
+      "name": "play",
+      "description": "Plays the audio. NOTE: If no click gesture has ever happened within the world, playback won’t begin until it has."
+    },
+    {
+      "name": "pause",
+      "description": "Pauses the audio, retaining the current time."
+    },
+    {
+      "name": "stop",
+      "description": "Stops the audio and resets the time back to zero."
+    },
+    {
+      "name": "add",
+      "description": "Adds otherNode as a child of this node.",
+      "arguments": [
+        {
+          "name": "otherNode",
+          "type": "Node",
+          "description": "The node to add as a child."
+        }
+      ]
+    },
+    {
+      "name": "remove",
+      "description": "Removes otherNode if it is a child of this node.",
+      "arguments": [
+        {
+          "name": "otherNode",
+          "type": "Node",
+          "description": "The node to remove."
+        }
+      ]
+    },
+    {
+      "name": "traverse",
+      "description": "Traverses this and all descendents calling callback with the node in the first argument.",
+      "arguments": [
+        {
+          "name": "callback",
+          "type": "Function",
+          "description": "The function to call with each node."
+        }
+      ]
+    }
+  ],
+  "snippets": [
+    {
+      "id": "basic-audio",
+      "name": "Create Basic Audio",
+      "description": "Create a basic audio clip with default settings",
+      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume,\n  loop: props.loop,\n  group: props.group,\n  spatial: props.spatial,\n  distanceModel: props.distanceModel,\n  refDistance: props.refDistance,\n  maxDistance: props.maxDistance,\n  rolloffFactor: props.rolloffFactor,\n  coneInnerAngle: props.coneInnerAngle,\n  coneOuterAngle: props.coneOuterAngle,\n  coneOuterGain: props.coneOuterGain\n})\napp.add(audio)",
+      "language": "javascript",
+      "tags": ["audio", "basic"]
+    },
+    {
+      "id": "spatial-audio",
+      "name": "Create Spatial Audio",
+      "description": "Create a spatial audio clip",
+      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: props.group,\n  spatial: props.spatial,\n  distanceModel: props.distanceModel,\n  refDistance: props.refDistance,\n  maxDistance: props.maxDistance,\n  rolloffFactor: props.rolloffFactor\n})\napp.add(audio)",
+      "language": "javascript",
+      "tags": ["audio", "spatial"]
+    },
+    {
+      "id": "sound-effect",
+      "name": "Create Sound Effect",
+      "description": "Create a sound effect",
+      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: 'sfx',\n  loop: false,\n  volume: props.volume\n})\napp.add(audio)\n\naudio.play()",
+      "language": "javascript",
+      "tags": ["audio", "sfx"]
+    },
+    {
+      "id": "looping-music",
+      "name": "Create Looping Music",
+      "description": "Create a looping music track",
+      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  group: 'music',\n  loop: true\n})\napp.add(audio)\n\naudio.play()",
+      "language": "javascript",
+      "tags": ["audio", "loop"]
+    },
+    {
+      "id": "play-pause-stop",
+      "name": "Play, Pause, and Stop Audio",
+      "description": "Demonstrate play, pause, and stop methods",
+      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume,\n  loop: false\n})\napp.add(audio)\n\naudio.play()\nsetTimeout(() => {\n  audio.pause()\n  console.log('Audio paused')\n}, 5000)\nsetTimeout(() => {\n  audio.stop()\n  console.log('Audio stopped')\n}, 10000)",
+      "language": "javascript",
+      "tags": ["audio", "control"]
+    },
+    {
+      "id": "add-child-to-audio",
+      "name": "Add Child to Audio",
+      "description": "Add a child node to the audio node",
+      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)",
+      "language": "javascript",
+      "tags": ["audio", "add", "child"]
+    },
+    {
+      "id": "remove-child-from-audio",
+      "name": "Remove Child from Audio",
+      "description": "Remove a child node from the audio node",
+      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)\n\n// Later, to remove the child node\naudio.remove(childNode)",
+      "language": "javascript",
+      "tags": ["audio", "remove", "child"]
+    },
+    {
+      "id": "traverse-audio",
+      "name": "Traverse Audio Node",
+      "description": "Traverse the audio node and its children",
+      "code": "const audio = app.create('Audio', {\n  src: props.audioFile?.url || props.audioSrc,\n  volume: props.volume\n})\nconst childNode = app.create('Node')\naudio.add(childNode)\napp.add(audio)\n\naudio.traverse((node) => {\n  console.log(node.id)\n})",
+      "language": "javascript",
+      "tags": ["audio", "traverse"]
+    }
+  ]
+}

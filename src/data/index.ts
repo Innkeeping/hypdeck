@@ -3,6 +3,21 @@ import snippets from './snippets.json';
 import actionNode from './nodes/action.json';
 import anchorNode from './nodes/anchor.json';
 import appNode from './nodes/app.json';
+import audioNode from './nodes/audio.json';
+import avatarNode from './nodes/avatar.json';
+import colliderNode from './nodes/collider.json';
+import rigidbodyNode from './nodes/rigidbody.json';
+import lodNode from './nodes/lod.json';
+import materialNode from './nodes/material.json';
+import meshNode from './nodes/mesh.json';
+import numMethod from './nodes/num.json';
+import groupNode from './nodes/group.json';
+import playerNode from './nodes/player.json';
+import uiNode from './nodes/ui.json';
+import uiviewNode from './nodes/uiview.json';
+import uitextNode from './nodes/uitext.json';
+import worldNode from './nodes/world.json';
+import baseNode from './nodes/node.json';
 
 // Helper to get category ID from node type
 const getCategoryId = (nodeType: string): string => {
@@ -29,7 +44,7 @@ const categorizedSnippets = snippets.snippets.map((snippet: any) => {
   const category = CATEGORIES.find(cat => snippet.tags.includes(cat.tag));
   return {
     ...snippet,
-    category: category?.id || 'uncategorized'
+    category: category ? category.id : 'uncategorized'
   };
 });
 
@@ -38,14 +53,44 @@ const allSnippets = [
   ...categorizedSnippets,
   ...convertNodeToSnippets(actionNode),
   ...convertNodeToSnippets(anchorNode),
-  ...convertNodeToSnippets(appNode)
+  ...convertNodeToSnippets(appNode),
+  ...convertNodeToSnippets(audioNode),
+  ...convertNodeToSnippets(avatarNode),
+  ...convertNodeToSnippets(colliderNode),
+  ...convertNodeToSnippets(rigidbodyNode),
+  ...convertNodeToSnippets(lodNode),
+  ...convertNodeToSnippets(materialNode),
+  ...convertNodeToSnippets(meshNode),
+  ...convertNodeToSnippets(numMethod),
+  ...convertNodeToSnippets(groupNode),
+  ...convertNodeToSnippets(baseNode),
+  ...convertNodeToSnippets(playerNode),
+  ...convertNodeToSnippets(uiNode),
+  ...convertNodeToSnippets(uiviewNode),
+  ...convertNodeToSnippets(uitextNode),
+  ...convertNodeToSnippets(worldNode)
 ];
 
 // Export combined data
 export const nodesData = {
   action: actionNode,
   anchor: anchorNode,
-  app: appNode
+  app: appNode,
+  audio: audioNode,
+  avatar: avatarNode,
+  collider: colliderNode,
+  rigidbody: rigidbodyNode,
+  lod: lodNode,
+  material: materialNode,
+  mesh: meshNode,
+  num: numMethod,
+  group: groupNode,
+  node: baseNode,
+  player: playerNode,
+  ui: uiNode,
+  uiview: uiviewNode,
+  uitext: uitextNode,
+  world: worldNode
 };
 
-export default allSnippets;
+export const allSnippetsData = allSnippets;

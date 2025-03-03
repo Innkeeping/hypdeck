@@ -1,0 +1,90 @@
+{
+  "title": "LOD",
+  "description": "A LOD can hold multiple child nodes and automatically activate/deactivate them based on their distance from the camera.",
+  "properties": [
+    {
+      "name": "id",
+      "type": "String",
+      "description": "The unique identifier for the node.",
+      "default": ""
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "The name of the node.",
+      "default": ""
+    },
+    {
+      "name": "enabled",
+      "type": "Boolean",
+      "description": "Whether the node is enabled.",
+      "default": true
+    },
+    {
+      "name": "position",
+      "type": "Object",
+      "description": "The position of the node in 3D space.",
+      "default": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "rotation",
+      "type": "Object",
+      "description": "The rotation of the node in 3D space.",
+      "default": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "scale",
+      "type": "Object",
+      "description": "The scale of the node in 3D space.",
+      "default": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "insert",
+      "description": "Adds node as a child of this node and also registers it to be activated/deactivated based on the maxDistance value.",
+      "parameters": [
+        {
+          "name": "node",
+          "type": "Node",
+          "description": "The node to be added."
+        },
+        {
+          "name": "maxDistance",
+          "type": "Number",
+          "description": "The maximum distance from the camera at which the node should be active."
+        }
+      ]
+    }
+  ],
+  "snippets": [
+    {
+      "id": "lod-create",
+      "name": "Create LOD",
+      "description": "Create an LOD node with default settings.",
+      "code": "const lod = app.create('LOD', {\n  id: 'lod-node',\n  name: 'LOD Node',\n  enabled: true,\n  position: { x: 0, y: 0, z: 0 },\n  rotation: { x: 0, y: 0, z: 0 },\n  scale: { x: 1, y: 1, z: 1 }\n})\napp.add(lod)",
+      "language": "javascript",
+      "tags": ["lod", "create"]
+    },
+    {
+      "id": "lod-insert-node",
+      "name": "Insert Node into LOD",
+      "description": "Insert a node into the LOD with a specified maximum distance.",
+      "code": "const lod = app.create('LOD')\nconst childNode = app.create('Mesh')\nlod.insert(childNode, 10)\napp.add(lod)",
+      "language": "javascript",
+      "tags": ["lod", "insert"]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "title": "num",
+  "description": "This is a global method that can be used to generate random numbers, since Math.random() is not allowed inside the app script runtime.",
+  "methods": [
+    {
+      "name": "num",
+      "description": "Generates a random number between min and max, with optional decimal places.",
+      "parameters": [
+        {
+          "name": "min",
+          "type": "Number",
+          "description": "The minimum value of the random number."
+        },
+        {
+          "name": "max",
+          "type": "Number",
+          "description": "The maximum value of the random number."
+        },
+        {
+          "name": "dp",
+          "type": "Number",
+          "description": "The number of decimal places for the random number. Defaults to 0.",
+          "default": 0
+        }
+      ],
+      "examples": [
+        {
+          "description": "Random integer between 0 and 10",
+          "code": "num(0, 10)"
+        },
+        {
+          "description": "Random float between 100 and 1000 with 2 decimal places",
+          "code": "num(100, 1000, 2)"
+        }
+      ]
+    }
+  ],
+  "snippets": [
+    {
+      "id": "num-random-integer",
+      "name": "Random Integer",
+      "description": "Generate a random integer between 0 and 10.",
+      "code": "num(0, 10)",
+      "language": "javascript",
+      "tags": ["num", "random", "integer"]
+    },
+    {
+      "id": "num-random-float",
+      "name": "Random Float",
+      "description": "Generate a random float between 100 and 1000 with 2 decimal places.",
+      "code": "num(100, 1000, 2)",
+      "language": "javascript",
+      "tags": ["num", "random", "float"]
+    }
+  ]
+}

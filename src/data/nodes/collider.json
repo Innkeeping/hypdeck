@@ -1,0 +1,96 @@
+{
+  "title": "Collider",
+  "description": "A collider connects to its parent rigidbody to simulate under physics. Note: Setting/modifying the geometry are not currently supported, and only be configured within a GLTF (eg via blender).",
+  "properties": [
+    {
+      "name": "type",
+      "type": "String",
+      "description": "The type of collider, must be box, sphere or geometry. Defaults to box.",
+      "default": "box",
+      "values": ["box", "sphere", "geometry"]
+    },
+    {
+      "name": "radius",
+      "type": "Number",
+      "description": "When type is sphere, sets the radius of the sphere. Defaults to 0.5.",
+      "default": 0.5
+    },
+    {
+      "name": "convex",
+      "type": "Boolean",
+      "description": "Whether the geometry should be considered “convex”. If disabled, the mesh will act as a trimesh. Defaults to false. Convex meshes are not only more performant, but also allow two convex dynamic rigidbodies to collide. This is the same behavior that engines like Unity use.",
+      "default": false
+    },
+    {
+      "name": "trigger",
+      "type": "Boolean",
+      "description": "Whether the collider is a trigger. Defaults to false. A trigger will not collide with anything, and instead will trigger the onTriggerEnter and onTriggerLeave functions on the parent rigidbody. NOTE: Triggers are forced to act like convex shapes. This is a limitation in the physics engine.",
+      "default": false
+    }
+  ],
+  "methods": [
+    {
+      "name": "setSize",
+      "description": "When type is box, sets the size of the box. Defaults to 1, 1, 1.",
+      "arguments": [
+        {
+          "name": "width",
+          "type": "Number",
+          "description": "The width of the box."
+        },
+        {
+          "name": "height",
+          "type": "Number",
+          "description": "The height of the box."
+        },
+        {
+          "name": "depth",
+          "type": "Number",
+          "description": "The depth of the box."
+        }
+      ]
+    }
+  ],
+  "snippets": [
+    {
+      "id": "box-collider",
+      "name": "Create Box Collider",
+      "description": "Create a box collider with default size",
+      "code": "const collider = app.create('Collider', { type: 'box' })\nparentRigidbody.add(collider)",
+      "language": "javascript",
+      "tags": ["collider", "box"]
+    },
+    {
+      "id": "box-collider-with-size",
+      "name": "Create Box Collider with Specific Size",
+      "description": "Create a box collider with specific dimensions",
+      "code": "const collider = app.create('Collider', { type: 'box' })\ncollider.setSize(2, 2, 2)\nparentRigidbody.add(collider)",
+      "language": "javascript",
+      "tags": ["collider", "box", "size"]
+    },
+    {
+      "id": "sphere-collider",
+      "name": "Create Sphere Collider",
+      "description": "Create a sphere collider with a specific radius",
+      "code": "const collider = app.create('Collider', { type: 'sphere', radius: 1 })\nparentRigidbody.add(collider)",
+      "language": "javascript",
+      "tags": ["collider", "sphere"]
+    },
+    {
+      "id": "geometry-collider",
+      "name": "Create Geometry Collider",
+      "description": "Create a geometry collider with convex property",
+      "code": "const collider = app.create('Collider', { type: 'geometry', convex: true })\nparentRigidbody.add(collider)",
+      "language": "javascript",
+      "tags": ["collider", "geometry"]
+    },
+    {
+      "id": "trigger-collider",
+      "name": "Create Trigger Collider",
+      "description": "Create a trigger collider",
+      "code": "const collider = app.create('Collider', { type: 'box', trigger: true })\nparentRigidbody.add(collider)",
+      "language": "javascript",
+      "tags": ["collider", "trigger"]
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "title": "UI",
+  "description": "Displays a UI plane in-world\n\nconst ui = app.create('UI')\nui.backgroundColor = 'rgba(0, 0, 0, 0.5)'",
+  "properties": [
+    {
+      "name": "width",
+      "type": "Number",
+      "description": "The width of the UI canvas in pixels. Defaults to 100.",
+      "default": 100
+    },
+    {
+      "name": "height",
+      "type": "Number",
+      "description": "The height of the UI canvas in pixels. Defaults to 100.",
+      "default": 100
+    },
+    {
+      "name": "size",
+      "type": "Number",
+      "description": "This value converts pixels to meters. For example if you set width = 100 and size = 0.01 your UI will have a width of one meter. This allows you to build UI while thinking in pixels instead of meters, and makes it easier to resize things later. Defaults to 0.01.",
+      "default": 0.01
+    },
+    {
+      "name": "lit",
+      "type": "Boolean",
+      "description": "Whether the canvas is affected by lighting. Defaults to false.",
+      "default": false
+    },
+    {
+      "name": "doubleside",
+      "type": "Boolean",
+      "description": "Whether the canvas is doublesided. Defaults to false.",
+      "default": false
+    },
+    {
+      "name": "billboard",
+      "type": "String",
+      "description": "Makes the UI face the camera. Can be null, full or y-axis. Default to null.",
+      "values": ["null", "full", "y-axis"],
+      "default": "null"
+    },
+    {
+      "name": "pivot",
+      "type": "String",
+      "description": "Determines where the “center” of the UI is. Options are: top-left, top-center, top-right, center-left, center, center-right, bottom-left, bottom-center, bottom-right. Defaults to center.",
+      "values": ["top-left", "top-center", "top-right", "center-left", "center", "center-right", "bottom-left", "bottom-center", "bottom-right"],
+      "default": "center"
+    },
+    {
+      "name": "backgroundColor",
+      "type": "String",
+      "description": "The background color of the UI. Can be hex (eg #000000) or rgba (eg rgba(0, 0, 0, 0.5)). Defaults to null.",
+      "default": "null"
+    },
+    {
+      "name": "borderWidth",
+      "type": "Number",
+      "description": "The width of the border in pixels."
+    },
+    {
+      "name": "borderColor",
+      "type": "String",
+      "description": "The color of the border."
+    },
+    {
+      "name": "borderRadius",
+      "type": "Number",
+      "description": "The radius of the border in pixels."
+    },
+    {
+      "name": "padding",
+      "type": "Number",
+      "description": "The inner padding of the UI in pixels. Defaults to 0.",
+      "default": 0
+    },
+    {
+      "name": "flexDirection",
+      "type": "String",
+      "description": "The flex direction. Options: column, column-reverse, row, row-reverse. Defaults to column.",
+      "values": ["column", "column-reverse", "row", "row-reverse"],
+      "default": "column"
+    },
+    {
+      "name": "justifyContent",
+      "type": "String",
+      "description": "Options: flex-start, flex-end, center. Defaults to flex-start.",
+      "values": ["flex-start", "flex-end", "center"],
+      "default": "flex-start"
+    },
+    {
+      "name": "alignItems",
+      "type": "String",
+      "description": "Options: stretch, flex-start, flex-end, center, baseline. Defaults to stretch.",
+      "values": ["stretch", "flex-start", "flex-end", "center", "baseline"],
+      "default": "stretch"
+    },
+    {
+      "name": "alignContent",
+      "type": "String",
+      "description": "Options: flex-start, flex-end, stretch, center, space-between, space-around, space-evenly. Defaults to flex-start.",
+      "values": ["flex-start", "flex-end", "stretch", "center", "space-between", "space-around", "space-evenly"],
+      "default": "flex-start"
+    },
+    {
+      "name": "flexWrap",
+      "type": "String",
+      "description": "Options: no-wrap, wrap. Defaults to no-wrap.",
+      "values": ["no-wrap", "wrap"],
+      "default": "no-wrap"
+    },
+    {
+      "name": "gap",
+      "type": "Number",
+      "description": "Defaults to 0.",
+      "default": 0
+    }
+  ],
+  "methods": [],
+  "snippets": [
+    {
+      "id": "create-ui",
+      "name": "Create UI",
+      "description": "Create a basic UI with default settings",
+      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexDirection: 'row',\n  justifyContent: 'center',\n  alignItems: 'center'\n})\napp.add(ui)",
+      "language": "javascript",
+      "tags": ["ui", "create"]
+    },
+    {
+      "id": "ui-border",
+      "name": "UI with Border",
+      "description": "Create a UI with a border",
+      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderWidth: 2,\n  borderColor: '#FFFFFF',\n  borderRadius: 10\n})\napp.add(ui)",
+      "language": "javascript",
+      "tags": ["ui", "border"]
+    },
+    {
+      "id": "ui-padding",
+      "name": "UI with Padding",
+      "description": "Create a UI with padding",
+      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  padding: 10\n})\napp.add(ui)",
+      "language": "javascript",
+      "tags": ["ui", "padding"]
+    },
+    {
+      "id": "ui-billboard",
+      "name": "Billboard UI",
+      "description": "Create a UI that faces the camera",
+      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  billboard: 'full'\n})\napp.add(ui)",
+      "language": "javascript",
+      "tags": ["ui", "billboard"]
+    },
+    {
+      "id": "ui-flex-direction",
+      "name": "UI Flex Direction",
+      "description": "Create a UI with different flex direction",
+      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexDirection: 'column'\n})\napp.add(ui)",
+      "language": "javascript",
+      "tags": ["ui", "flex-direction"]
+    },
+    {
+      "id": "ui-align-items",
+      "name": "UI Align Items",
+      "description": "Create a UI with different align items",
+      "code": "const ui = app.create('UI', {\n  width: 200,\n  height: 100,\n  size: 0.01,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  alignItems: 'center'\n})\napp.add(ui)",
+      "language": "javascript",
+      "tags": ["ui", "align-items"]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "title": "Group",
+  "description": "A regular old node with no other behavior. Useful for grouping things together under one parent.",
+  "properties": [
+    {
+      "name": "id",
+      "type": "String",
+      "description": "The unique identifier for the node.",
+      "default": ""
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "The name of the node.",
+      "default": ""
+    },
+    {
+      "name": "enabled",
+      "type": "Boolean",
+      "description": "Whether the node is enabled.",
+      "default": true
+    },
+    {
+      "name": "position",
+      "type": "Object",
+      "description": "The position of the node in 3D space.",
+      "default": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "rotation",
+      "type": "Object",
+      "description": "The rotation of the node in 3D space.",
+      "default": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "scale",
+      "type": "Object",
+      "description": "The scale of the node in 3D space.",
+      "default": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      }
+    }
+  ],
+  "methods": [],
+  "snippets": [
+    {
+      "id": "group-create",
+      "name": "Create Group",
+      "description": "Create a Group node with default settings.",
+      "code": "const group = app.create('Group', {\n  id: 'group-node',\n  name: 'Group Node',\n  enabled: true,\n  position: { x: 0, y: 0, z: 0 },\n  rotation: { x: 0, y: 0, z: 0 },\n  scale: { x: 1, y: 1, z: 1 }\n})\napp.add(group)",
+      "language": "javascript",
+      "tags": ["group", "create"]
+    }
+  ]
+}

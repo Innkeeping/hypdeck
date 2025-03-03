@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { CodeSnippet } from '../types';
 import { nanoid } from '../utils/nanoid';
-import allSnippets from '../data';
+import { allSnippetsData } from '../data';
 import { nodesData } from '../data';
 import { CATEGORIES } from '../store/categories';
 
@@ -18,7 +18,7 @@ interface SnippetStore {
 }
 
 export const useSnippetStore = create<SnippetStore>((set, get) => ({
-  snippets: allSnippets,
+  snippets: allSnippetsData,
   nodes: nodesData,
   categories: CATEGORIES,
 

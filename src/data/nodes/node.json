@@ -1,0 +1,136 @@
+{
+  "title": "Node",
+  "description": "The base class for all other nodes.",
+  "properties": [
+    {
+      "name": "id",
+      "type": "String",
+      "description": "The ID of the node. This is auto generated when creating nodes via script. For GLTF models converted to nodes, it uses the same object name you would see in blender.\n\nNOTE: Blender GLTF exporter does rename objects in some cases, eg by removing spaces. For best practices, name everything in UpperCamelCase with no other characters.",
+      "default": ""
+    },
+    {
+      "name": "position",
+      "type": "Vector3",
+      "description": "The local position of the node.",
+      "default": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "quaternion",
+      "type": "Quaternion",
+      "description": "The local quaternion rotation of the node. Updating this automatically updates the rotation property.",
+      "default": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      }
+    },
+    {
+      "name": "rotation",
+      "type": "Euler",
+      "description": "The local euler rotation of the node. Updating this automatically updates the quaternion property.",
+      "default": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "scale",
+      "type": "Vector3",
+      "description": "The local scale of the node.",
+      "default": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      }
+    },
+    {
+      "name": "matrixWorld",
+      "type": "Matrix4",
+      "description": "The world matrix of this node in global space.",
+      "default": null
+    },
+    {
+      "name": "parent",
+      "type": "Node",
+      "description": "The parent node, if any.",
+      "default": null
+    }
+  ],
+  "methods": [
+    {
+      "name": "add",
+      "description": "Adds otherNode as a child of this node.",
+      "parameters": [
+        {
+          "name": "otherNode",
+          "type": "Node",
+          "description": "The node to be added as a child."
+        }
+      ],
+      "returns": "Self"
+    },
+    {
+      "name": "remove",
+      "description": "Removes otherNode if it is a child of this node.",
+      "parameters": [
+        {
+          "name": "otherNode",
+          "type": "Node",
+          "description": "The node to be removed."
+        }
+      ],
+      "returns": "Self"
+    },
+    {
+      "name": "traverse",
+      "description": "Traverses this and all descendants calling callback with the node in the first argument.",
+      "parameters": [
+        {
+          "name": "callback",
+          "type": "Function",
+          "description": "The callback function to be called for each node."
+        }
+      ]
+    }
+  ],
+  "snippets": [
+    {
+      "id": "node-create",
+      "name": "Create Node",
+      "description": "Create a Node with default settings.",
+      "code": "const node = app.create('Node', {\n  id: 'node-id',\n  position: { x: 0, y: 0, z: 0 },\n  rotation: { x: 0, y: 0, z: 0 },\n  scale: { x: 1, y: 1, z: 1 }\n})\napp.add(node)",
+      "language": "javascript",
+      "tags": ["node", "create"]
+    },
+    {
+      "id": "node-add-child",
+      "name": "Add Child Node",
+      "description": "Add a child node to the current node.",
+      "code": "const parentNode = app.create('Node')\nconst childNode = app.create('Node')\nparentNode.add(childNode)\napp.add(parentNode)",
+      "language": "javascript",
+      "tags": ["node", "add", "child"]
+    },
+    {
+      "id": "node-remove-child",
+      "name": "Remove Child Node",
+      "description": "Remove a child node from the current node.",
+      "code": "const parentNode = app.create('Node')\nconst childNode = app.create('Node')\nparentNode.add(childNode)\nparentNode.remove(childNode)\napp.add(parentNode)",
+      "language": "javascript",
+      "tags": ["node", "remove", "child"]
+    },
+    {
+      "id": "node-traverse",
+      "name": "Traverse Nodes",
+      "description": "Traverse the node and its descendants.",
+      "code": "const parentNode = app.create('Node')\nconst childNode1 = app.create('Node')\nconst childNode2 = app.create('Node')\nparentNode.add(childNode1)\nparentNode.add(childNode2)\nparentNode.traverse(node => {\n  console.log(node.id)\n})\napp.add(parentNode)",
+      "language": "javascript",
+      "tags": ["node", "traverse"]
+    }
+  ]
+}

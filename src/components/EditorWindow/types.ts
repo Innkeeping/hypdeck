@@ -7,11 +7,16 @@ export interface EditorWindowProps {
 
 export interface TitleBarProps {
   editor: EditorInstance;
+  isEditing: boolean;
+  editName: string;
   isMaximized: boolean;
-  onClose: (e: React.MouseEvent) => void;
-  onMaximize: (e: React.MouseEvent) => void;
-  onMinimize: (e: React.MouseEvent) => void;
+  onNameSubmit: (e: React.FormEvent) => void;
+  onNameEdit: (e: React.MouseEvent) => void;
   onNameChange: (name: string) => void;
+  onMinimize: (e: React.MouseEvent) => void;
+  onMaximize: (e: React.MouseEvent) => void;
+  onClose: (e: React.MouseEvent) => void;
+  onTitleDoubleClick: () => void;
 }
 
 export interface ResizeHandleProps {

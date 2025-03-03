@@ -1,0 +1,129 @@
+{
+  "title": "UIText",
+  "description": "Represents text inside a UI.\n\nconst text = app.create('UIText')\ntext.value = 'Hello world'",
+  "properties": [
+    {
+      "name": "display",
+      "type": "String",
+      "description": "Either none or flex. Defaults to flex.",
+      "values": ["none", "flex"],
+      "default": "flex"
+    },
+    {
+      "name": "backgroundColor",
+      "type": "String",
+      "description": "The background color of the view. Can be hex (eg #000000) or rgba (eg rgba(0, 0, 0, 0.5)). Defaults to null.",
+      "default": "null"
+    },
+    {
+      "name": "borderRadius",
+      "type": "Number",
+      "description": "The radius of the border in pixels."
+    },
+    {
+      "name": "margin",
+      "type": "Number",
+      "description": "The outer margin of the view in pixels. Defaults to 0.",
+      "default": 0
+    },
+    {
+      "name": "padding",
+      "type": "Number",
+      "description": "The inner padding of the view in pixels. Defaults to 0.",
+      "default": 0
+    },
+    {
+      "name": "value",
+      "type": "String",
+      "description": "The text to display."
+    },
+    {
+      "name": "fontSize",
+      "type": "Number",
+      "description": "The font size in pixels. Defaults to 16.",
+      "default": 16
+    },
+    {
+      "name": "color",
+      "type": "String",
+      "description": "The font color. Defaults to #000000.",
+      "default": "#000000"
+    },
+    {
+      "name": "lineHeight",
+      "type": "Number",
+      "description": "The line height. Defaults to 1.2.",
+      "default": 1.2
+    },
+    {
+      "name": "textAlign",
+      "type": "String",
+      "description": "Options: left, center, right. Defaults to left.",
+      "values": ["left", "center", "right"],
+      "default": "left"
+    },
+    {
+      "name": "fontFamily",
+      "type": "String",
+      "description": "Defaults to Rubik.",
+      "default": "Rubik"
+    },
+    {
+      "name": "fontWeight",
+      "type": "String",
+      "description": "Defaults to normal, can also be a number like 100 or string like bold.",
+      "default": "normal"
+    }
+  ],
+  "methods": [],
+  "snippets": [
+    {
+      "id": "create-uitext",
+      "name": "Create UIText",
+      "description": "Create a basic UIText with default settings",
+      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  textAlign: 'left'\n})\napp.add(text)",
+      "language": "javascript",
+      "tags": ["uitext", "create"]
+    },
+    {
+      "id": "uitext-background",
+      "name": "UIText with Background",
+      "description": "Create a UIText with a background color",
+      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#FFFFFF',\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderRadius: 10\n})\napp.add(text)",
+      "language": "javascript",
+      "tags": ["uitext", "background"]
+    },
+    {
+      "id": "uitext-margin-padding",
+      "name": "UIText with Margin and Padding",
+      "description": "Create a UIText with margin and padding",
+      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  margin: 10,\n  padding: 5\n})\napp.add(text)",
+      "language": "javascript",
+      "tags": ["uitext", "margin", "padding"]
+    },
+    {
+      "id": "uitext-align",
+      "name": "UIText Text Alignment",
+      "description": "Create a UIText with different text alignment",
+      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  textAlign: 'center'\n})\napp.add(text)",
+      "language": "javascript",
+      "tags": ["uitext", "text-align"]
+    },
+    {
+      "id": "uitext-font",
+      "name": "UIText Font Customization",
+      "description": "Create a UIText with custom font settings",
+      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 20,\n  color: '#FF0000',\n  fontFamily: 'Arial',\n  fontWeight: 'bold'\n})\napp.add(text)",
+      "language": "javascript",
+      "tags": ["uitext", "font", "customization"]
+    },
+    {
+      "id": "uitext-line-height",
+      "name": "UIText Line Height",
+      "description": "Create a UIText with custom line height",
+      "code": "const text = app.create('UIText', {\n  value: 'Hello world',\n  fontSize: 16,\n  color: '#000000',\n  lineHeight: 1.5\n})\napp.add(text)",
+      "language": "javascript",
+      "tags": ["uitext", "line-height"]
+    }
+  ]
+}

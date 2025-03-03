@@ -1,0 +1,51 @@
+{
+  "title": "Material",
+  "description": "A material on a Mesh node.",
+  "properties": [
+    {
+      "name": "textureX",
+      "type": "Number",
+      "description": "The offset of the texture on the x axis. Useful for UV scrolling.",
+      "default": 0
+    },
+    {
+      "name": "textureY",
+      "type": "Number",
+      "description": "The offset of the texture on the y axis. Useful for UV scrolling.",
+      "default": 0
+    },
+    {
+      "name": "emissiveIntensity",
+      "type": "Number",
+      "description": "The emissive intensity of the material. Values greater than 1 will activate HDR Bloom, as long as the emissive is not black.",
+      "default": 0
+    }
+  ],
+  "methods": [],
+  "snippets": [
+    {
+      "id": "material-create",
+      "name": "Create Material",
+      "description": "Create a material with default settings.",
+      "code": "const material = app.create('Material', {\n  textureX: 0,\n  textureY: 0,\n  emissiveIntensity: 0\n})\napp.add(material)",
+      "language": "javascript",
+      "tags": ["material", "create"]
+    },
+    {
+      "id": "material-texture-scroll",
+      "name": "Material Texture Scroll",
+      "description": "Create a material with texture offsets for scrolling.",
+      "code": "const material = app.create('Material', {\n  textureX: 0.5,\n  textureY: 0.5,\n  emissiveIntensity: 0\n})\napp.add(material)",
+      "language": "javascript",
+      "tags": ["material", "texture-scroll"]
+    },
+    {
+      "id": "material-emissive",
+      "name": "Material Emissive Intensity",
+      "description": "Create a material with emissive intensity.",
+      "code": "const material = app.create('Material', {\n  textureX: 0,\n  textureY: 0,\n  emissiveIntensity: 1.5\n})\napp.add(material)",
+      "language": "javascript",
+      "tags": ["material", "emissive"]
+    }
+  ]
+}

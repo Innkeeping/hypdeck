@@ -1,0 +1,167 @@
+{
+  "title": "Avatar",
+  "description": "Renders a VRM avatar",
+  "properties": [
+    {
+      "name": "src",
+      "type": "String",
+      "description": "An asset url (eg from props) or an absolute URL to a .vrm file."
+    },
+    {
+      "name": "emote",
+      "type": "String",
+      "description": "An emote url (eg from props) or an absolute URL to a .glb file with an emote animation."
+    },
+    {
+      "name": "id",
+      "type": "String",
+      "description": "The ID of the node. This is auto generated when creating nodes via script. For GLTF models converted to nodes, it uses the same object name you would see in blender. NOTE: Blender GLTF exporter does rename objects in some cases, eg by removing spaces. Best practice is to simply name everything in UpperCamelCase with no other characters."
+    },
+    {
+      "name": "position",
+      "type": "Vector3",
+      "description": "The local position of the node."
+    },
+    {
+      "name": "quaternion",
+      "type": "Quaternion",
+      "description": "The local quaternion rotation of the node. Updating this automatically updates the rotation property."
+    },
+    {
+      "name": "rotation",
+      "type": "Euler",
+      "description": "The local euler rotation of the node. Updating this automatically updates the quaternion property."
+    },
+    {
+      "name": "scale",
+      "type": "Vector3",
+      "description": "The local scale of the node."
+    },
+    {
+      "name": "matrixWorld",
+      "type": "Matrix4",
+      "description": "The world matrix of this node in global space."
+    },
+    {
+      "name": "parent",
+      "type": "Node",
+      "description": "The parent node, if any."
+    }
+  ],
+  "methods": [
+    {
+      "name": "getHeight",
+      "description": "Returns the height of the avatar in meters. This might be null if the avatar hasn’t loaded yet. Read-only.",
+      "returns": {
+        "type": "Number",
+        "description": "The height of the avatar in meters, or null if not loaded."
+      }
+    },
+    {
+      "name": "getBoneTransform",
+      "description": "Returns a matrix of the bone transform in world space. Note that VRM avatars have required and optional bones, and in some cases including while avatars are loading this method may return null. The VRM spec defines the following bones as required: hips, spine, chest, neck, head, leftShoulder, leftUpperArm, leftLowerArm, leftHand, rightShoulder, rightUpperArm, rightLowerArm, rightHand, leftUpperLeg, leftLowerLeg, leftFoot, leftToes, rightUpperLeg, rightLowerLeg, rightFoot, rightToes",
+      "arguments": [
+        {
+          "name": "boneName",
+          "type": "String",
+          "description": "The name of the bone."
+        }
+      ],
+      "returns": {
+        "type": "Matrix4",
+        "description": "The matrix of the bone transform in world space, or null if the bone is not found or the avatar is not loaded."
+      }
+    },
+    {
+      "name": "add",
+      "description": "Adds otherNode as a child of this node.",
+      "arguments": [
+        {
+          "name": "otherNode",
+          "type": "Node",
+          "description": "The node to add as a child."
+        }
+      ]
+    },
+    {
+      "name": "remove",
+      "description": "Removes otherNode if it is a child of this node.",
+      "arguments": [
+        {
+          "name": "otherNode",
+          "type": "Node",
+          "description": "The node to remove."
+        }
+      ]
+    },
+    {
+      "name": "traverse",
+      "description": "Traverses this and all descendents calling callback with the node in the first argument.",
+      "arguments": [
+        {
+          "name": "callback",
+          "type": "Function",
+          "description": "The function to call with each node."
+        }
+      ]
+    }
+  ],
+  "snippets": [
+    {
+      "id": "basic-avatar",
+      "name": "Create Basic Avatar",
+      "description": "Create a basic avatar with a VRM file",
+      "code": "const src = props.avatar?.url\nconst avatar = app.create('Avatar', { src })\napp.add(avatar)",
+      "language": "javascript",
+      "tags": ["avatar", "basic"]
+    },
+    {
+      "id": "avatar-with-emote",
+      "name": "Create Avatar with Emote",
+      "description": "Create an avatar with a VRM file and an emote animation",
+      "code": "const src = props.avatar?.url\nconst emote = props.emote?.url\nconst avatar = app.create('Avatar', { src, emote })\napp.add(avatar)",
+      "language": "javascript",
+      "tags": ["avatar", "emote"]
+    },
+    {
+      "id": "get-avatar-height",
+      "name": "Get Avatar Height",
+      "description": "Get the height of the avatar",
+      "code": "const height = avatar.getHeight()\nconsole.log('Avatar height:', height)",
+      "language": "javascript",
+      "tags": ["avatar", "height"]
+    },
+    {
+      "id": "get-bone-transform",
+      "name": "Get Bone Transform",
+      "description": "Get the transform of a specific bone",
+      "code": "const matrix = avatar.getBoneTransform('rightHand')\nif (matrix) {\n  weapon.position.setFromMatrixPosition(matrix)\n  weapon.quaternion.setFromRotationMatrix(matrix)\n} else {\n  console.log('Bone not found or avatar not loaded')\n}",
+      "language": "javascript",
+      "tags": ["avatar", "bone", "transform"]
+    },
+    {
+      "id": "add-child-to-avatar",
+      "name": "Add Child to Avatar",
+      "description": "Add a child node to the avatar",
+      "code": "const childNode = app.create('Node')\navatar.add(childNode)",
+      "language": "javascript",
+      "tags": ["avatar", "add", "child"]
+    },
+    {
+      "id": "remove-child-from-avatar",
+      "name": "Remove Child from Avatar",
+      "description": "Remove a child node from the avatar",
+      "code": "const childNode = app.create('Node')\navatar.add(childNode)\navatar.remove(childNode)",
+      "language": "javascript",
+      "tags": ["avatar", "remove", "child"]
+    },
+    {
+      "id": "traverse-avatar",
+      "name": "Traverse Avatar",
+      "description": "Traverse all descendents of the avatar",
+      "code": "avatar.traverse(node => {\n  console.log(node.id)\n})",
+      "language": "javascript",
+      "tags": ["avatar", "traverse"]
+    }
+  ]
+}

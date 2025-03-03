@@ -1,0 +1,167 @@
+{
+  "title": "Player",
+  "description": "Represents a player. An instance of Player can be retrieved from events or via World.getPlayer.\n\nNOTE: Setting/modifying the geometry are not currently supported, and only be configured within a GLTF (eg via blender).",
+  "properties": [
+    {
+      "name": "networkId",
+      "type": "String",
+      "description": "A completely unique ID that is given to every player each time they connect."
+    },
+    {
+      "name": "entityId",
+      "type": "String",
+      "description": "The entity’s ID."
+    },
+    {
+      "name": "id",
+      "type": "String",
+      "description": "The player ID. This ID is the same each time the player enters the world."
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "The player's name."
+    },
+    {
+      "name": "position",
+      "type": "Vector3",
+      "description": "The player's position in the world."
+    },
+    {
+      "name": "quaternion",
+      "type": "Quaternion",
+      "description": "The player's rotation in the world."
+    },
+    {
+      "name": "rotation",
+      "type": "Euler",
+      "description": "The player's rotation in the world."
+    }
+  ],
+  "methods": [
+    {
+      "name": "teleport",
+      "description": "Teleports the player instantly to the new position. The rotationY value is in radians, and if omitted the player will continue facing their current direction.",
+      "arguments": [
+        {
+          "name": "position",
+          "type": "Vector3",
+          "description": "The new position to teleport the player to."
+        },
+        {
+          "name": "rotationY",
+          "type": "Number",
+          "description": "The new rotationY value in radians (optional)."
+        }
+      ]
+    },
+    {
+      "name": "hasEffect",
+      "description": "Whether the player currently has an active effect.",
+      "returns": {
+        "type": "Boolean",
+        "description": "Returns true if the player has an active effect, otherwise false."
+      }
+    },
+    {
+      "name": "setEffect",
+      "description": "Sets an effect on the player. If the player already had an effect, it is replaced. If this function is called with null it removes any active effect.\n\nAll options are optional.",
+      "arguments": [
+        {
+          "name": "effect",
+          "type": "Object",
+          "description": "An object containing the effect properties.",
+          "properties": [
+            {
+              "name": "anchor",
+              "type": "Anchor",
+              "description": "An Anchor to attach the player to."
+            },
+            {
+              "name": "emote",
+              "type": "String",
+              "description": "A URL to an emote to play while this effect is active."
+            },
+            {
+              "name": "snare",
+              "type": "Number",
+              "description": "A multiplier from 0 to 1 that reduces movement speed, where zero means no snaring and one means entirely snared. When snared, players can still turn and attempt to move."
+            },
+            {
+              "name": "freeze",
+              "type": "Boolean",
+              "description": "When true, the player is frozen in place and all movement keys are ignored."
+            },
+            {
+              "name": "duration",
+              "type": "Number",
+              "description": "How long this effect should last in seconds."
+            },
+            {
+              "name": "cancellable",
+              "type": "Boolean",
+              "description": "Whether any movement keys will cancel the effect. If enabled, freeze is ignored."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getBoneTransform",
+      "description": "Returns a matrix of the bone transform in world space.",
+      "arguments": [
+        {
+          "name": "boneName",
+          "type": "String",
+          "description": "The name of the bone."
+        }
+      ],
+      "returns": {
+        "type": "Matrix4",
+        "description": "Returns the bone transform matrix in world space."
+      }
+    }
+  ],
+  "snippets": [
+    {
+      "id": "teleport-player",
+      "name": "Teleport Player",
+      "description": "Teleport the player to a new position and rotation",
+      "code": "const player = World.getPlayer()\nconst newPosition = new Vector3(10, 0, 10)\nconst newRotationY = Math.PI / 2 // 90 degrees\nplayer.teleport(newPosition, newRotationY)",
+      "language": "javascript",
+      "tags": ["player", "teleport"]
+    },
+    {
+      "id": "check-effect",
+      "name": "Check Player Effect",
+      "description": "Check if the player has an active effect",
+      "code": "const player = World.getPlayer()\nif (player.hasEffect()) {\n  console.log('Player has an active effect')\n} else {\n  console.log('Player has no active effect')\n}",
+      "language": "javascript",
+      "tags": ["player", "effect"]
+    },
+    {
+      "id": "set-effect",
+      "name": "Set Player Effect",
+      "description": "Set an effect on the player",
+      "code": "const player = World.getPlayer()\nplayer.setEffect({\n  anchor: someAnchor,\n  emote: 'https://example.com/emote.glb',\n  snare: 0.5,\n  freeze: false,\n  duration: 10,\n  cancellable: true\n})",
+      "language": "javascript",
+      "tags": ["player", "effect", "set"]
+    },
+    {
+      "id": "remove-effect",
+      "name": "Remove Player Effect",
+      "description": "Remove any active effect from the player",
+      "code": "const player = World.getPlayer()\nplayer.setEffect(null)",
+      "language": "javascript",
+      "tags": ["player", "effect", "remove"]
+    },
+    {
+      "id": "get-bone-transform",
+      "name": "Get Bone Transform",
+      "description": "Get the bone transform matrix in world space",
+      "code": "const player = World.getPlayer()\nconst boneName = 'head'\nconst boneTransform = player.getBoneTransform(boneName)\nconsole.log(boneTransform)",
+      "language": "javascript",
+      "tags": ["player", "bone", "transform"]
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "title": "UIView",
+  "description": "Represents a single view inside a UI, similar to a div.\n\nconst view = app.create('UIView')\nview.backgroundColor = 'rgba(0, 0, 0, 0.5)'",
+  "properties": [
+    {
+      "name": "display",
+      "type": "String",
+      "description": "Either none or flex. Defaults to flex.",
+      "values": ["none", "flex"],
+      "default": "flex"
+    },
+    {
+      "name": "width",
+      "type": "Number",
+      "description": "The width of the view in pixels. Defaults to 100.",
+      "default": 100
+    },
+    {
+      "name": "height",
+      "type": "Number",
+      "description": "The height of the view in pixels. Defaults to 100.",
+      "default": 100
+    },
+    {
+      "name": "backgroundColor",
+      "type": "String",
+      "description": "The background color of the view. Can be hex (eg #000000) or rgba (eg rgba(0, 0, 0, 0.5)). Defaults to null.",
+      "default": "null"
+    },
+    {
+      "name": "borderWidth",
+      "type": "Number",
+      "description": "The width of the border in pixels."
+    },
+    {
+      "name": "borderColor",
+      "type": "String",
+      "description": "The color of the border."
+    },
+    {
+      "name": "borderRadius",
+      "type": "Number",
+      "description": "The radius of the border in pixels."
+    },
+    {
+      "name": "margin",
+      "type": "Number",
+      "description": "The outer margin of the view in pixels. Defaults to 0.",
+      "default": 0
+    },
+    {
+      "name": "padding",
+      "type": "Number",
+      "description": "The inner padding of the view in pixels. Defaults to 0.",
+      "default": 0
+    },
+    {
+      "name": "flexDirection",
+      "type": "String",
+      "description": "The flex direction. column, column-reverse, row or row-reverse. Defaults to column.",
+      "values": ["column", "column-reverse", "row", "row-reverse"],
+      "default": "column"
+    },
+    {
+      "name": "justifyContent",
+      "type": "String",
+      "description": "Options: flex-start, flex-end, center. Defaults to flex-start.",
+      "values": ["flex-start", "flex-end", "center"],
+      "default": "flex-start"
+    },
+    {
+      "name": "alignItems",
+      "type": "String",
+      "description": "Options: stretch, flex-start, flex-end, center, baseline. Defaults to stretch.",
+      "values": ["stretch", "flex-start", "flex-end", "center", "baseline"],
+      "default": "stretch"
+    },
+    {
+      "name": "alignContent",
+      "type": "String",
+      "description": "Options: flex-start, flex-end, stretch, center, space-between, space-around, space-evenly. Defaults to flex-start.",
+      "values": ["flex-start", "flex-end", "stretch", "center", "space-between", "space-around", "space-evenly"],
+      "default": "flex-start"
+    },
+    {
+      "name": "flexBasis",
+      "type": "Number",
+      "description": "Defaults to null.",
+      "default": "null"
+    },
+    {
+      "name": "flexGrow",
+      "type": "Number",
+      "description": "Defaults to null.",
+      "default": "null"
+    },
+    {
+      "name": "flexShrink",
+      "type": "Number",
+      "description": "Defaults to null.",
+      "default": "null"
+    },
+    {
+      "name": "flexWrap",
+      "type": "String",
+      "description": "Options: no-wrap, wrap. Defaults to no-wrap.",
+      "values": ["no-wrap", "wrap"],
+      "default": "no-wrap"
+    },
+    {
+      "name": "gap",
+      "type": "Number",
+      "description": "Defaults to 0.",
+      "default": 0
+    }
+  ],
+  "methods": [],
+  "snippets": [
+    {
+      "id": "create-uiview",
+      "name": "Create UIView",
+      "description": "Create a basic UIView with default settings",
+      "code": "const view = app.create('UIView', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderRadius: 10\n})\napp.add(view)",
+      "language": "javascript",
+      "tags": ["uiview", "create"]
+    },
+    {
+      "id": "uiview-border",
+      "name": "UIView with Border",
+      "description": "Create a UIView with a border",
+      "code": "const view = app.create('UIView', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  borderWidth: 2,\n  borderColor: '#000000',\n  borderRadius: 10\n})\napp.add(view)",
+      "language": "javascript",
+      "tags": ["uiview", "border"]
+    },
+    {
+      "id": "uiview-margin-padding",
+      "name": "UIView with Margin and Padding",
+      "description": "Create a UIView with margin and padding",
+      "code": "const view = app.create('UIView', {\n  width: 100,\n  height: 100,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  margin: 10,\n  padding: 5\n})\napp.add(view)",
+      "language": "javascript",
+      "tags": ["uiview", "margin", "padding"]
+    },
+    {
+      "id": "uiview-flex-direction",
+      "name": "UIView Flex Direction",
+      "description": "Create a UIView with different flex direction",
+      "code": "const view = app.create('UIView', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexDirection: 'row'\n})\napp.add(view)",
+      "language": "javascript",
+      "tags": ["uiview", "flex-direction"]
+    },
+    {
+      "id": "uiview-justify-align",
+      "name": "UIView Justify Content and Align Items",
+      "description": "Create a UIView with justify content and align items",
+      "code": "const view = app.create('UIView', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  justifyContent: 'center',\n  alignItems: 'center'\n})\napp.add(view)",
+      "language": "javascript",
+      "tags": ["uiview", "justify-content", "align-items"]
+    },
+    {
+      "id": "uiview-flex-wrap",
+      "name": "UIView Flex Wrap",
+      "description": "Create a UIView with flex wrap",
+      "code": "const view = app.create('UIView', {\n  width: 200,\n  height: 200,\n  backgroundColor: 'rgba(0, 0, 0, 0.5)',\n  flexWrap: 'wrap'\n})\napp.add(view)",
+      "language": "javascript",
+      "tags": ["uiview", "flex-wrap"]
+    }
+  ]
+}

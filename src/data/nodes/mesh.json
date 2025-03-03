@@ -1,0 +1,45 @@
+{
+  "title": "Mesh",
+  "description": "Represents a mesh to be rendered. Internally the mesh is automatically instanced for performance.\n\nNote\nSetting/modifying the geometry or topology are not currently supported, and only be configured within a GLTF (eg via blender).",
+  "properties": [
+    {
+      "name": "castShadow",
+      "type": "Boolean",
+      "description": "Whether this mesh should cast a shadow. Defaults to true.",
+      "default": true
+    },
+    {
+      "name": "receiveShadow",
+      "type": "Boolean",
+      "description": "Whether this mesh should receive a shadow. Defaults to true.",
+      "default": true
+    }
+  ],
+  "methods": [],
+  "snippets": [
+    {
+      "id": "mesh-create",
+      "name": "Create Mesh",
+      "description": "Create a mesh with default shadow settings.",
+      "code": "const mesh = app.create('Mesh', {\n  castShadow: true,\n  receiveShadow: true\n})\napp.add(mesh)",
+      "language": "javascript",
+      "tags": ["mesh", "create"]
+    },
+    {
+      "id": "mesh-cast-shadow",
+      "name": "Mesh Cast Shadow",
+      "description": "Create a mesh that casts shadows.",
+      "code": "const mesh = app.create('Mesh', {\n  castShadow: true,\n  receiveShadow: false\n})\napp.add(mesh)",
+      "language": "javascript",
+      "tags": ["mesh", "cast-shadow"]
+    },
+    {
+      "id": "mesh-receive-shadow",
+      "name": "Mesh Receive Shadow",
+      "description": "Create a mesh that receives shadows.",
+      "code": "const mesh = app.create('Mesh', {\n  castShadow: false,\n  receiveShadow: true\n})\napp.add(mesh)",
+      "language": "javascript",
+      "tags": ["mesh", "receive-shadow"]
+    }
+  ]
+}

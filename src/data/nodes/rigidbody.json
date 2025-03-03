@@ -1,0 +1,92 @@
+{
+  "title": "RigidBody",
+  "description": "A rigidbody that has colliders as children will act under physics.\n\nNote: contacts, triggers, forces, etc are left out of the docs until they are ratified.",
+  "properties": [
+    {
+      "name": "type",
+      "type": "String",
+      "description": "The type of rigidbody, either static, kinematic or dynamic. Defaults to static.\n\nNOTE: if you plan to move the rigidbody with code without being dynamic, use kinematic for performance reasons.",
+      "values": ["static", "kinematic", "dynamic"],
+      "default": "static"
+    },
+    {
+      "name": "onContactStart",
+      "type": "Function",
+      "description": "The function to call when a child collider generates contacts with another rigidbody. (Experimental)"
+    },
+    {
+      "name": "onContactEnd",
+      "type": "Function",
+      "description": "The function to call when a child collider ends contacts with another rigidbody. (Experimental)"
+    },
+    {
+      "name": "onTriggerEnter",
+      "type": "Function",
+      "description": "The function to call when a child trigger collider is entered. (Experimental)"
+    },
+    {
+      "name": "onTriggerLeave",
+      "type": "Function",
+      "description": "The function to call when a child trigger collider is left. (Experimental)"
+    }
+  ],
+  "methods": [],
+  "snippets": [
+    {
+      "id": "create-rigidbody",
+      "name": "Create RigidBody",
+      "description": "Create a rigidbody with default settings",
+      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic'\n})\napp.add(rigidbody)",
+      "language": "javascript",
+      "tags": ["rigidbody", "create"]
+    },
+    {
+      "id": "create-static-rigidbody",
+      "name": "Create Static RigidBody",
+      "description": "Create a static rigidbody",
+      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'static'\n})\napp.add(rigidbody)",
+      "language": "javascript",
+      "tags": ["rigidbody", "static"]
+    },
+    {
+      "id": "create-kinematic-rigidbody",
+      "name": "Create Kinematic RigidBody",
+      "description": "Create a kinematic rigidbody",
+      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'kinematic'\n})\napp.add(rigidbody)",
+      "language": "javascript",
+      "tags": ["rigidbody", "kinematic"]
+    },
+    {
+      "id": "on-contact-start",
+      "name": "Handle Contact Start",
+      "description": "Handle contact start event for a rigidbody",
+      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic',\n  onContactStart: (contact) => {\n    console.log('Contact started:', contact)\n  }\n})\napp.add(rigidbody)",
+      "language": "javascript",
+      "tags": ["rigidbody", "contact", "start"]
+    },
+    {
+      "id": "on-contact-end",
+      "name": "Handle Contact End",
+      "description": "Handle contact end event for a rigidbody",
+      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic',\n  onContactEnd: (contact) => {\n    console.log('Contact ended:', contact)\n  }\n})\napp.add(rigidbody)",
+      "language": "javascript",
+      "tags": ["rigidbody", "contact", "end"]
+    },
+    {
+      "id": "on-trigger-enter",
+      "name": "Handle Trigger Enter",
+      "description": "Handle trigger enter event for a rigidbody",
+      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic',\n  onTriggerEnter: (trigger) => {\n    console.log('Trigger entered:', trigger)\n  }\n})\napp.add(rigidbody)",
+      "language": "javascript",
+      "tags": ["rigidbody", "trigger", "enter"]
+    },
+    {
+      "id": "on-trigger-leave",
+      "name": "Handle Trigger Leave",
+      "description": "Handle trigger leave event for a rigidbody",
+      "code": "const rigidbody = app.create('RigidBody', {\n  type: 'dynamic',\n  onTriggerLeave: (trigger) => {\n    console.log('Trigger left:', trigger)\n  }\n})\napp.add(rigidbody)",
+      "language": "javascript",
+      "tags": ["rigidbody", "trigger", "leave"]
+    }
+  ]
+}
