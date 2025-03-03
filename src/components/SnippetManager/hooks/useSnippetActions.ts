@@ -73,7 +73,7 @@ export const useSnippetActions = (
 
       updateEditorContent(editorId, newContent);
       setNotification({
-        message: 'Snippet added to terminal',
+        message: `Snippet added to terminal '${editor.name}'`,
         type: 'success'
       });
     }

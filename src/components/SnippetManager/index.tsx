@@ -3,7 +3,6 @@ import { Header } from './Header';
 import { SearchBar } from './SearchBar';
 import { CategoryDropdown } from './CategoryDropdown';
 import { TagsDropdown } from './TagsDropdown';
-import { TerminalIndicator } from './TerminalIndicator';
 import { SnippetItem } from './SnippetItem';
 import { ActionDialog } from './ActionDialog';
 import { Notification } from './Notification';
@@ -149,12 +148,6 @@ const SnippetManager: React.FC<SnippetManagerProps> = ({ onClose }) => {
             </div>
           </div>
         </div>
-
-        <TerminalIndicator
-          selectedTerminalId={selectedTerminalId}
-          setSelectedTerminalId={setSelectedTerminalId}
-          editors={availableEditors}
-        />
 
         <div
           ref={snippetListRef}
