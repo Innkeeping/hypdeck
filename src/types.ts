@@ -15,6 +15,7 @@ export interface Editor {
   isActive: boolean;
   isMinimized: boolean;
   shouldFocus: boolean;
+  wordWrap?: boolean;
 }
 
 export interface CodeSnippet {

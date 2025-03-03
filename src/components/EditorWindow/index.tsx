@@ -18,7 +18,8 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ editor }) => {
     handleEditorDidMount,
     handleClick,
     handleEditorChange,
-    titleBarProps
+    titleBarProps,
+    wordWrap
   } = useEditorState(editor);
 
   if (editor.isMinimized) {
@@ -68,6 +69,7 @@ const EditorWindow: React.FC<EditorWindowProps> = ({ editor }) => {
               folding: true,
               lineDecorationsWidth: 10,
               lineNumbersMinChars: 3,
+              wordWrap: wordWrap ? 'on' : 'off',
             }}
           />
         </div>

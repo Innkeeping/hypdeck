@@ -16,6 +16,7 @@ export const useEditorState = (editor: EditorInstance) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(editor.name);
+  const [wordWrap, setWordWrap] = useState(false);
   const editorRef = useRef<any>(null);
 
   const handleEditorDidMount = (editor: any) => {
@@ -87,12 +88,32 @@ export const useEditorState = (editor: EditorInstance) => {
     setIsEditing(true);
   };
 
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && e.code === 'KeyZ' && editor.isActive) {
+        e.preventDefault();
+        setWordWrap(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [editor.isActive]);
+
   useEffect(() => {
     if (editor.isActive && editorRef.current) {
       editorRef.current.focus();
       editorRef.current.setPosition({ lineNumber: 1, column: 1 });
     }
   }, [editor.isActive]);
+
+  // Update editor options when wordWrap changes
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.updateOptions({ wordWrap: wordWrap ? 'on' : 'off' });
+    }
+  }, [wordWrap]);
 
   const titleBarProps: TitleBarProps = {
     editor,
@@ -114,6 +135,7 @@ export const useEditorState = (editor: EditorInstance) => {
     handleEditorDidMount,
     handleClick,
     handleEditorChange,
-    titleBarProps
+    titleBarProps,
+    wordWrap
   };
 };
